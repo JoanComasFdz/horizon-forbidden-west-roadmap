@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horizon Forbidden West — Optimal Quest Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e14;
+    --bg2: #111820;
+    --bg3: #19222e;
+    --text: #dce4ec;
+    --text-dim: #7a8da0;
+    --main: #e8443a;
+    --main-glow: rgba(232,68,58,0.25);
+    --poseidon: #1ca0e3;
+    --demeter: #44b849;
+    --aether: #c29f2a;
+    --unlock: #ff9f1c;
+    --legendary: #e67e22;
+    --side: #6fc3a0;
+    --errand: #8b9cc0;
+    --companion: #c084fc;
+    --activity: #f472b6;
+    --warning: #ef4444;
+    --border: rgba(255,255,255,0.06);
+    --card-bg: rgba(17,24,32,0.85);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Exo 2',sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height:1.55;
+    min-height:100vh;
+  }
+  .hero {
+    background: linear-gradient(135deg, #0a0e14 0%, #152030 50%, #1a1510 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 24px 36px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before {
+    content:'';
+    position:absolute;
+    top:0;left:0;right:0;bottom:0;
+    background: radial-gradient(ellipse at 30% 80%, rgba(232,68,58,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 20%, rgba(28,160,227,0.06) 0%, transparent 50%);
+    pointer-events:none;
+  }
+  .hero h1 {
+    font-family:'Rajdhani',sans-serif;
+    font-weight:700;
+    font-size: clamp(28px,5vw,42px);
+    letter-spacing:3px;
+    text-transform:uppercase;
+    background: linear-gradient(90deg, var(--main), #ff7b54);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    position:relative;
+  }
+  .hero p {
+    color: var(--text-dim);
+    margin-top:10px;
+    font-size:14px;
+    max-width:640px;
+    margin-left:auto;margin-right:auto;
+  }
+  .legend {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 18px;
+    justify-content:center;
+    padding:16px 24px;
+    background: var(--bg2);
+    border-bottom:1px solid var(--border);
+    font-size:12px;
+    font-weight:500;
+  }
+  .legend span {
+    display:flex;align-items:center;gap:5px;
+  }
+  .legend .dot {
+    width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0;
+  }
+  .container {
+    max-width:900px;
+    margin:0 auto;
+    padding:24px 16px 64px;
+  }
+
+  /* Phase blocks */
+  .phase {
+    margin-bottom:32px;
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    background: var(--card-bg);
+    backdrop-filter:blur(8px);
+  }
+  .phase-header {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    cursor:pointer;
+    user-select:none;
+    background: linear-gradient(90deg, rgba(232,68,58,0.08), transparent);
+    border-bottom:1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .phase-header:hover { background: linear-gradient(90deg, rgba(232,68,58,0.14), transparent); }
+  .phase-header .arrow {
+    font-size:14px;
+    transition:transform 0.25s;
+    color:var(--main);
+    flex-shrink:0;
+    width:16px;
+  }
+  .phase.collapsed .arrow { transform:rotate(-90deg); }
+  .phase-header h2 {
+    font-family:'Rajdhani',sans-serif;
+    font-weight:700;
+    font-size:18px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    flex:1;
+  }
+  .phase-header .lvl {
+    font-size:12px;
+    color:var(--text-dim);
+    font-weight:500;
+    background:rgba(255,255,255,0.05);
+    padding:3px 10px;
+    border-radius:20px;
+    white-space:nowrap;
+  }
+  .phase-body {
+    padding:6px 0;
+    transition: max-height 0.3s ease;
+  }
+  .phase.collapsed .phase-body { display:none; }
+
+  /* Quest items */
+  .quest {
+    display:flex;
+    gap:12px;
+    padding:10px 18px;
+    align-items:flex-start;
+    border-left:3px solid transparent;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .quest:hover { background:rgba(255,255,255,0.02); }
+  .quest.main { border-left-color: var(--main); }
+  .quest.side { border-left-color: var(--side); }
+  .quest.errand { border-left-color: var(--errand); }
+  .quest.companion { border-left-color: var(--companion); }
+  .quest.activity { border-left-color: var(--activity); }
+  .quest.branch-poseidon { border-left-color: var(--poseidon); }
+  .quest.branch-demeter { border-left-color: var(--demeter); }
+  .quest.branch-aether { border-left-color: var(--aether); }
+
+  .quest .order {
+    font-family:'Rajdhani',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    color:#fff;
+    margin-top:2px;
+  }
+  .quest.main .order { background:var(--main); }
+  .quest.side .order { background:var(--side); color:#0a0e14; }
+  .quest.errand .order { background:var(--errand); color:#0a0e14; }
+  .quest.companion .order { background:var(--companion); color:#0a0e14; }
+  .quest.activity .order { background:var(--activity); color:#0a0e14; }
+  .quest.branch-poseidon .order { background:var(--poseidon); }
+  .quest.branch-demeter .order { background:var(--demeter); color:#0a0e14; }
+  .quest.branch-aether .order { background:var(--aether); color:#0a0e14; }
+
+  .quest-info { flex:1; min-width:0; }
+  .quest-name {
+    font-family:'Rajdhani',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.5px;
+  }
+  .quest-type {
+    font-size:10px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-left:6px;
+    opacity:0.6;
+  }
+  .quest-reason {
+    font-size:13px;
+    color:var(--text-dim);
+    margin-top:3px;
+    line-height:1.45;
+  }
+  .tag {
+    display:inline-block;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.8px;
+    padding:2px 7px;
+    border-radius:3px;
+    margin-right:4px;
+    margin-top:4px;
+    vertical-align:middle;
+  }
+  .tag.unlock { background:rgba(255,159,28,0.15); color:var(--unlock); border:1px solid rgba(255,159,28,0.25); }
+  .tag.legendary { background:rgba(230,126,34,0.15); color:var(--legendary); border:1px solid rgba(230,126,34,0.25); }
+  .tag.reward { background:rgba(111,195,160,0.12); color:var(--side); border:1px solid rgba(111,195,160,0.2); }
+  .tag.warning { background:rgba(239,68,68,0.12); color:var(--warning); border:1px solid rgba(239,68,68,0.2); }
+  .tag.choice { background:rgba(192,132,252,0.12); color:var(--companion); border:1px solid rgba(192,132,252,0.2); }
+
+  .divider {
+    display:flex;align-items:center;gap:10px;
+    padding:14px 18px 6px;
+    font-family:'Rajdhani',sans-serif;
+    font-weight:600;
+    font-size:12px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--text-dim);
+  }
+  .divider::after {
+    content:'';flex:1;height:1px;background:var(--border);
+  }
+
+  .branch-box {
+    margin:6px 18px 10px;
+    border:1px dashed rgba(255,255,255,0.1);
+    border-radius:8px;
+    padding:10px 0;
+    background:rgba(255,255,255,0.01);
+    position:relative;
+  }
+  .branch-label {
+    position:absolute;
+    top:-9px;left:16px;
+    font-family:'Rajdhani',sans-serif;
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    background:var(--bg2);
+    padding:0 8px;
+    color:var(--main);
+  }
+  .note-box {
+    margin:8px 18px 12px;
+    padding:10px 14px;
+    font-size:12px;
+    line-height:1.5;
+    color:var(--text-dim);
+    background:rgba(232,68,58,0.04);
+    border:1px solid rgba(232,68,58,0.12);
+    border-radius:6px;
+  }
+  .note-box strong { color:var(--text); }
+  .note-box em { color:var(--unlock); font-style:normal; }
+
+  .footer {
+    text-align:center;
+    padding:24px;
+    font-size:11px;
+    color:var(--text-dim);
+    border-top:1px solid var(--border);
+    max-width:900px;
+    margin:0 auto;
+  }
+
+  @media(max-width:600px) {
+    .hero { padding:32px 16px 24px; }
+    .quest { padding:8px 12px; gap:8px; }
+    .phase-header { padding:12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Horizon Forbidden West</h1>
+  <p>Optimal Quest Roadmap — play main missions, side quests, and activities in the smartest order to unlock key tools, weapons, and armor exactly when they matter most.</p>
+</div>
+
+<div class="legend">
+  <span><span class="dot" style="background:var(--main)"></span> Main Quest</span>
+  <span><span class="dot" style="background:var(--poseidon)"></span> Poseidon Branch</span>
+  <span><span class="dot" style="background:var(--demeter)"></span> Demeter Branch</span>
+  <span><span class="dot" style="background:var(--aether)"></span> Aether Branch</span>
+  <span><span class="dot" style="background:var(--side)"></span> Side Quest</span>
+  <span><span class="dot" style="background:var(--errand)"></span> Errand</span>
+  <span><span class="dot" style="background:var(--companion)"></span> Companion</span>
+  <span><span class="dot" style="background:var(--activity)"></span> Activity</span>
+</div>
+
+<div class="container">
+
+<!-- ===== PHASE 1 ===== -->
+<div class="phase" id="p1">
+  <div class="phase-header" onclick="toggle('p1')">
+    <span class="arrow">▼</span>
+    <h2>Phase 1 — The Daunt (Prologue)</h2>
+    <span class="lvl">Lv 3–7</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      Linear opening. Focus on the main story to learn controls and reach the Forbidden West. Pick up early side quests in <strong>Chainscrape</strong> — they give great XP, skills, and one of the best early weapons.
+    </div>
+
+    <div class="quest main"><span class="order">1</span><div class="quest-info">
+      <div class="quest-name">Reach for the Stars <span class="quest-type">Main</span></div>
+      <div class="quest-reason">Tutorial mission. Explore the launch facility with Varl. <span class="tag unlock">Unlocks: Pullcaster</span></div>
+    </div></div>
+
+    <div class="quest main"><span class="order">2</span><div class="quest-info">
+      <div class="quest-name">The Point of the Lance <span class="quest-type">Interlude</span></div>
+      <div class="quest-reason">Return to Meridian. Investigate the Spire. Story exposition.</div>
+    </div></div>
+
+    <div class="quest main"><span class="order">3</span><div class="quest-info">
+      <div class="quest-name">To the Brink <span class="quest-type">Main</span></div>
+      <div class="quest-reason">Enter The Daunt. Unlocks merchants and the first settlement, Chainscrape. <span class="tag unlock">Unlocks: Shieldwing (glider)</span></div>
+    </div></div>
+
+    <div class="divider">Side Content — Chainscrape (do before The Embassy)</div>
+
+    <div class="quest errand"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">A Bigger Boom <span class="quest-type">Errand</span></div>
+      <div class="quest-reason">Two Oseram tinkers on the way out of Chainscrape. Fun dialogue and rewards one of the <strong>best early weapons</strong> — a Spike Thrower. <span class="tag reward">Reward: Spike Thrower</span></div>
+    </div></div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Deep Trouble <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Investigate a flooded mine. Good early XP and introduces underwater mechanics.</div>
+    </div></div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">The Bristlebacks <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Help a local town with its problems. <span class="tag reward">Reward: Nora Champion outfit</span></div>
+    </div></div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">The Twilight Path <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Talk to Petra in Chainscrape. Great story about investigating a Carja camp. Good XP and skill points.</div>
+    </div></div>
+
+    <div class="quest main"><span class="order">4</span><div class="quest-info">
+      <div class="quest-name">The Embassy <span class="quest-type">Main</span></div>
+      <div class="quest-reason">Attend the Embassy between the Carja and Tenakth. Crosses into the Forbidden West proper. <span class="tag unlock">Unlocks: Access to the Forbidden West</span></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ===== PHASE 2 ===== -->
+<div class="phase" id="p2">
+  <div class="phase-header" onclick="toggle('p2')">
+    <span class="arrow">▼</span>
+    <h2>Phase 2 — Into the Forbidden West</h2>
+    <span class="lvl">Lv 7–17</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      Push through main quests to unlock the <em>Igniter</em> (Firegleam tool) and reach <strong>The Base</strong>. Do side content in <strong>Barren Light</strong>, <strong>Plainsong</strong>, and <strong>No Man's Land</strong> along the way. Start Salvage Contracts with Keruf in Barren Light early — there are 17 total and they lead to a legendary armor set.
+    </div>
+
+    <div class="quest main"><span class="order">5</span><div class="quest-info">
+      <div class="quest-name">Death's Door <span class="quest-type">Main</span></div>
+      <div class="quest-reason">Track Sylens' signal. Critical progression mission. <span class="tag unlock">Unlocks: Igniter (detonates Firegleam / red crystals)</span></div>
+    </div></div>
+
+    <div class="divider">Side Content — Barren Light & No Man's Land</div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Shadow from the Past → Shadow in the West <span class="quest-type">Side Quest Chain</span></div>
+      <div class="quest-reason">Eclipse quest chain from HZD. Great for Zero Dawn fans — wraps up lingering story threads. Start at Barren Light.</div>
+    </div></div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Breaking Even <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason"><span class="tag warning">Missable!</span> During this quest, do the <strong>optional objective</strong> to recover Porguf's Lockbox. If you skip it, the errand "Broken Locks" becomes permanently missable (needed for 100%).</div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Start Salvage Contracts (Keruf, Barren Light) <span class="quest-type">Activity</span></div>
+      <div class="quest-reason">Begin early — there are 17 contracts total across four NPCs. Completing all of them rewards the <strong>Oseram Artificer</strong>, the best melee legendary armor. <span class="tag legendary">Legendary: Oseram Artificer armor</span></div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Cauldron: MU <span class="quest-type">Cauldron</span></div>
+      <div class="quest-reason">South of Plainsong. First optional cauldron — unlocks overrides for common machines (Scrounger, Burrower, Scrapper, etc.). Do it early for useful overrides.</div>
+    </div></div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">The Roots That Bind <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Plainsong area. Lengthy quest with tough fights, platforming, and a stealth section. Good XP.</div>
+    </div></div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">The Promontory <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Plainsong. Reveals the Utaru's inner struggles. Rich story, no major gear reward but excellent narrative.</div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Tallnecks (any you encounter) <span class="quest-type">Activity</span></div>
+      <div class="quest-reason">Always override Tallnecks when you find them — they reveal large portions of the map for free, showing quest locations and points of interest.</div>
+    </div></div>
+
+    <div class="quest main"><span class="order">6</span><div class="quest-info">
+      <div class="quest-name">The Dying Lands <span class="quest-type">Main</span></div>
+      <div class="quest-reason">Venture into Cauldron TAU (story-required). Capture MINERVA sub-function. Unlocks the Bristleback mount. <span class="tag unlock">Unlocks: Cauldron TAU overrides + Bristleback mount</span></div>
+    </div></div>
+
+    <div class="quest main"><span class="order">7</span><div class="quest-info">
+      <div class="quest-name">The Eye of the Earth <span class="quest-type">Interlude</span></div>
+      <div class="quest-reason">Establish The Base — your hub for the rest of the game. Fabrication Terminal for crafting overrides. <span class="tag unlock">Unlocks: The Base, Fabrication Terminal, Gauntlet Runs, 3-way branch</span></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ===== PHASE 3 ===== -->
+<div class="phase" id="p3">
+  <div class="phase-header" onclick="toggle('p3')">
+    <span class="arrow">▼</span>
+    <h2>Phase 3 — The Three Branches (Recommended Order)</h2>
+    <span class="lvl">Lv 17–24</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      After The Eye of the Earth, three quests unlock simultaneously. You can do them in any order, but <strong>each one unlocks a critical exploration tool</strong>. The recommended order prioritizes tools that open the most content:
+      <br><br>
+      <strong>1st:</strong> <em>The Sea of Sands</em> (Poseidon) → Diving Mask for unlimited underwater exploration<br>
+      <strong>2nd:</strong> <em>Seeds of the Past</em> (Demeter) → Vine Cutter to clear Metal Flower blockages<br>
+      <strong>3rd:</strong> <em>The Broken Sky → The Kulrut</em> (Aether) → Tear Arrows + Arena access<br><br>
+      <strong>⚠ Important:</strong> Completing any ONE of these three triggers <em>Cradle of Echoes</em>, which locks you in until completed. So do side content between branches if you want.
+    </div>
+
+    <!-- Branch 1: Poseidon -->
+    <div class="branch-box">
+      <span class="branch-label" style="color:var(--poseidon)">① Poseidon Branch — Do First</span>
+
+      <div class="quest branch-poseidon"><span class="order">8</span><div class="quest-info">
+        <div class="quest-name">The Sea of Sands <span class="quest-type">Main</span></div>
+        <div class="quest-reason">Travel to the ruins of Las Vegas. Retrieve POSEIDON. <span class="tag unlock">Unlocks: Diving Mask (unlimited underwater breathing)</span> This opens up underwater caves, Relic Ruins with submerged sections, and several side quests that were impossible before.</div>
+      </div></div>
+    </div>
+
+    <div class="quest main"><span class="order">⟳</span><div class="quest-info">
+      <div class="quest-name">Cradle of Echoes <span class="quest-type">Main — Auto-triggered</span></div>
+      <div class="quest-reason">Automatically starts after completing any branch. You're locked in until it's done. Short mission chasing HADES. <span class="tag unlock">Unlocks: Firegleam tool becomes available in more areas</span></div>
+    </div></div>
+
+    <div class="divider">Side Content Break (with Diving Mask)</div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Drowned Hopes <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Requires Diving Mask. Rewards a blue-tier Tripcaster. Now accessible with your new underwater ability.</div>
+    </div></div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Signal Spike <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Requires Diving Mask. Help an Oseram tinker decipher a signal. Rewards a Spike Thrower.</div>
+    </div></div>
+
+    <div class="quest errand"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Nights of Lights <span class="quest-type">Errand</span></div>
+      <div class="quest-reason">In The Stillsands (near Las Vegas). Uncovers an ornament from Relic Ruins. <strong>Required</strong> for the legendary Ancestor's Return shredder gauntlet alongside the 9 Relic Ruins.</div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Relic Ruins (any accessible ones) <span class="quest-type">Activity</span></div>
+      <div class="quest-reason">Start collecting Ornaments. Some need the Vine Cutter (wait until you have it). Completing all 9 + Nights of Lights → <span class="tag legendary">Legendary: Ancestor's Return (Shredder Gauntlet)</span></div>
+    </div></div>
+
+    <!-- Branch 2: Demeter -->
+    <div class="branch-box">
+      <span class="branch-label" style="color:var(--demeter)">② Demeter Branch — Do Second</span>
+
+      <div class="quest branch-demeter"><span class="order">9</span><div class="quest-info">
+        <div class="quest-name">Seeds of the Past <span class="quest-type">Main</span></div>
+        <div class="quest-reason">Travel to the far western coast, The Greenhouse. Retrieve DEMETER. <span class="tag unlock">Unlocks: Vine Cutter (clears Metal Flower blockages)</span> Opens blocked paths across the entire map, required for some Relic Ruins and side areas.</div>
+      </div></div>
+    </div>
+
+    <div class="quest main"><span class="order">⟳</span><div class="quest-info">
+      <div class="quest-name">Cradle of Echoes <span class="quest-type">Auto-triggered again</span></div>
+      <div class="quest-reason">If not yet done, triggers here. Otherwise this step is skipped.</div>
+    </div></div>
+
+    <div class="divider">Side Content Break (with Vine Cutter + Diving Mask)</div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">The Burning Blooms <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Track down Talanah from HZD. First part of a chain. Start this before it chains into "Need to Know" (available after Cradle of Echoes).</div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Remaining Relic Ruins <span class="quest-type">Activity</span></div>
+      <div class="quest-reason">With both Diving Mask and Vine Cutter, you can now complete all 9 Relic Ruins. Return Ornaments to Stemmur in Hidden Ember for the legendary reward.</div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Cauldron: CHI <span class="quest-type">Cauldron</span></div>
+      <div class="quest-reason">Southeast of Thornmarsh. Good overrides. Accessible now with your full toolkit.</div>
+    </div></div>
+
+    <!-- Branch 3: Aether -->
+    <div class="branch-box">
+      <span class="branch-label" style="color:var(--aether)">③ Aether Branch — Do Third</span>
+
+      <div class="quest branch-aether"><span class="order">10</span><div class="quest-info">
+        <div class="quest-name">The Broken Sky <span class="quest-type">Main</span></div>
+        <div class="quest-reason">Travel to Memorial Grove to meet Chief Hekarro. Sets up the next mission. <span class="tag unlock">Unlocks: Tear Arrows (strip machine components)</span></div>
+      </div></div>
+
+      <div class="quest branch-aether"><span class="order">11</span><div class="quest-info">
+        <div class="quest-name">The Kulrut <span class="quest-type">Main</span></div>
+        <div class="quest-reason">Major battle event. Retrieve AETHER. <span class="tag unlock">Unlocks: Arena access (via "Opening the Arena" side quest)</span> The Arena is where you earn legendary weapons and armor for medals.</div>
+      </div></div>
+    </div>
+
+    <div class="quest main"><span class="order">⟳</span><div class="quest-info">
+      <div class="quest-name">Cradle of Echoes <span class="quest-type">Auto-triggered if not done</span></div>
+      <div class="quest-reason">Final chance — if somehow still not triggered, it happens now.</div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ===== PHASE 4 ===== -->
+<div class="phase" id="p4">
+  <div class="phase-header" onclick="toggle('p4')">
+    <span class="arrow">▼</span>
+    <h2>Phase 4 — Mid-Game Exploration Window</h2>
+    <span class="lvl">Lv 20–30</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      With all three tools unlocked (Diving Mask, Vine Cutter, Igniter) and Arena access, this is the <strong>best time to do side content</strong>. You can access nearly every area and earn powerful gear before the final stretch.
+    </div>
+
+    <div class="divider">Priority Side Quests</div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Thirst for the Hunt → The Wound in the Sand → The Gate of the Vanquished → The Deluge <span class="quest-type">Side Quest Chain</span></div>
+      <div class="quest-reason">Arrowhand settlement chain. Includes a meaningful player choice (Drakka vs Yarra). Rewards the <strong>Tenakth Vindicator</strong> — one of the best mid-game armors (stealth-friendly perks and great stats). <span class="tag reward">Reward: Tenakth Vindicator outfit</span></div>
+    </div></div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Need to Know <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Continuation of "The Burning Blooms" (Talanah chain). Available after Cradle of Echoes. Great story featuring a Tideripper fight.</div>
+    </div></div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Blood for Blood <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Hefty battle and heartwarming story. <span class="tag reward">Reward: Perimeter Tripcaster</span></div>
+    </div></div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">A Tribe Apart <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Help young Tenakth warriors. Required for "Broken Locks" errand to appear.</div>
+    </div></div>
+
+    <div class="quest errand"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Broken Locks <span class="quest-type">Errand</span></div>
+      <div class="quest-reason"><span class="tag warning">Missable!</span> Only available if you recovered Porguf's Lockbox during Breaking Even. Check Camp Nowhere for the quest marker.</div>
+    </div></div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Opening the Arena <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Fetch quest at The Maw of the Arena (after The Kulrut). Unlocks Arena challenges where you earn medals for legendary gear. <span class="tag unlock">Unlocks: Arena Challenges</span></div>
+    </div></div>
+
+    <div class="divider">Activities & Legendary Weapon Paths</div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Rebel Camps (all 5 → 6th "First Forge") <span class="quest-type">Activity</span></div>
+      <div class="quest-reason">Clear all 5 rebel camps, then talk to Erend to unlock the 6th secret camp "First Forge". Boss Asera drops a legendary bow. <span class="tag legendary">Legendary: The Sun Scourge (Hunter Bow)</span></div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Cauldron: IOTA <span class="quest-type">Cauldron</span></div>
+      <div class="quest-reason">North of Scalding Spear. One of the best — contains a hidden Tallneck inside, revealing a huge map section. Wide variety of overrides. <span class="tag unlock">Unlocks: Tallneck: Salt Bite + many overrides</span></div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Cauldron: KAPPA <span class="quest-type">Cauldron</span></div>
+      <div class="quest-reason">Requires Diving Mask (underwater entrance). Hardest cauldron — unlocks overrides for the most powerful machines. West of The Bulwark along the coast.</div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Black Boxes (all 12) <span class="quest-type">Collectible</span></div>
+      <div class="quest-reason">Find all 12, trade them with Untalla at Memorial Grove. <span class="tag legendary">Legendary: Wings of the Ten (Blastsling)</span></div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Hunting Grounds (all 4, Full Stripes) <span class="quest-type">Activity</span></div>
+      <div class="quest-reason">Complete all 12 trials with Full Stripes rating. <span class="tag legendary">Legendary: Tinker's Pride (Tripcaster)</span></div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Gauntlet Runs (all 4) <span class="quest-type">Activity</span></div>
+      <div class="quest-reason">Machine races. First one near Scalding Spear. Complete all four. <span class="tag legendary">Legendary: Carja's Bane (Warrior Bow)</span></div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Arena — Grind for Medals <span class="quest-type">Activity</span></div>
+      <div class="quest-reason">80 medals → <span class="tag legendary">Death-Seeker's Shadow (Hunter Bow)</span> + <span class="tag legendary">Forgefall (Sharpshot Bow)</span>. 54 medals each → legendary armor sets (Nora Thunder Warrior, Carja Stalker Elite, Tenakth Vanquisher). Can be done on any difficulty.</div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Melee Pits (all 4 + final Enduring) <span class="quest-type">Activity</span></div>
+      <div class="quest-reason">Complete the 4 Melee Pits, then challenge The Enduring for the trophy. Spread across different regions — do as you encounter them.</div>
+    </div></div>
+
+    <div class="quest errand"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">First to Fly <span class="quest-type">Errand</span></div>
+      <div class="quest-reason">Reassemble the armor of the first Tenakth to take flight. <span class="tag reward">Reward: Tenakth Sky Climber outfit (concentration + healing)</span></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ===== PHASE 5 ===== -->
+<div class="phase" id="p5">
+  <div class="phase-header" onclick="toggle('p5')">
+    <span class="arrow">▼</span>
+    <h2>Phase 5 — Late Story (Faro's Tomb → GEMINI)</h2>
+    <span class="lvl">Lv 26–31</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      Return to the main story. The <em>Gemini</em> mission unlocks the <strong>Sunwing override (flying)</strong> — the game's biggest mobility upgrade. This opens several late-game side quests. <span class="tag warning">Scan Specters!</span> — they only appear in a few main quests. Scan them with your Focus for the trophy.
+    </div>
+
+    <div class="quest main"><span class="order">12</span><div class="quest-info">
+      <div class="quest-name">Faro's Tomb <span class="quest-type">Main</span></div>
+      <div class="quest-reason">Major lore mission. Explore Ted Faro's bunker. Level 26 recommended.</div>
+    </div></div>
+
+    <div class="quest main"><span class="order">13</span><div class="quest-info">
+      <div class="quest-name">GEMINI <span class="quest-type">Main</span></div>
+      <div class="quest-reason">Cauldron GEMINI — trap HEPHAESTUS. Story-required cauldron. <span class="tag unlock">Unlocks: Sunwing Override = FLYING!</span> This is a massive exploration upgrade. Opens up late-game side quests and lets you reach areas you couldn't before.</div>
+    </div></div>
+
+    <div class="quest main"><span class="order">14</span><div class="quest-info">
+      <div class="quest-name">All That Remains <span class="quest-type">Interlude</span></div>
+      <div class="quest-reason">Learn the truth about the Zeniths and the Odyssey. Story exposition at The Base.</div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ===== PHASE 6 ===== -->
+<div class="phase" id="p6">
+  <div class="phase-header" onclick="toggle('p6')">
+    <span class="arrow">▼</span>
+    <h2>Phase 6 — Final Exploration Window (Before Endgame)</h2>
+    <span class="lvl">Lv 30–35+</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      With flying unlocked, this is your <strong>last best window</strong> to clean up everything before the finale. Companion quests at The Base are especially recommended — they have emotional payoffs and trophies. Do the rebel camps before Wings of the Ten for narrative coherence (you're fighting Regalla's rebellion, so clearing her camps first makes sense).
+    </div>
+
+    <div class="divider">Companion Quests (from The Base)</div>
+
+    <div class="quest companion"><span class="order">★</span><div class="quest-info">
+      <div class="quest-name">The Second Verse (Zo) <span class="quest-type">Companion Quest</span></div>
+      <div class="quest-reason">Widely considered the most emotionally beautiful quest in the game. Heal the Land Gods. Changes the environment. <strong>Highly recommended before Singularity.</strong> <span class="tag reward">Reward: Utaru Warden outfit + trophy</span></div>
+    </div></div>
+
+    <div class="quest companion"><span class="order">★</span><div class="quest-info">
+      <div class="quest-name">What Was Lost (Kotallo) <span class="quest-type">Companion Quest</span></div>
+      <div class="quest-reason">Help Kotallo test his new mechanical arm. Great emotional payoff. Do before Singularity for narrative coherence. <span class="tag reward">Reward: Trophy</span></div>
+    </div></div>
+
+    <div class="quest companion"><span class="order">★</span><div class="quest-info">
+      <div class="quest-name">Forbidden Legacy (Alva) <span class="quest-type">Companion Quest</span></div>
+      <div class="quest-reason">Help Alva recover data. Rewards a strong survivability outfit. <span class="tag reward">Reward: Carja Behemoth Trapper outfit + trophy</span></div>
+    </div></div>
+
+    <div class="divider">Late-Game Side Content (Requires Flying)</div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">The Way Home <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Requires Sunwing (flying). Legacy's Landfall. Talk to the women on the boat. Rewards one of the best weapons in the entire game. <span class="tag legendary">Legendary: The Skykiller (Spike Thrower)</span></div>
+    </div></div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">The Valley of the Fallen <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Late-game quest tied closely to the main story. Features Thunderjaw, Tremortusk, and Specter fights. Best experienced before Singularity — machine encounters change if done after.</div>
+    </div></div>
+
+    <div class="quest side"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">A Soldier's March <span class="quest-type">Side Quest</span></div>
+      <div class="quest-reason">Help a soldier on a march. Good XP and story.</div>
+    </div></div>
+
+    <div class="quest errand"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">A Bigger Boom — Part 2 (revisit the sisters) <span class="quest-type">Errand</span></div>
+      <div class="quest-reason">Return to the Oseram sisters from early game. They gift you another excellent weapon. <span class="tag reward">Reward: Boomer's Shredder Gauntlet</span></div>
+    </div></div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Finish any remaining activities <span class="quest-type">Cleanup</span></div>
+      <div class="quest-reason">Remaining Rebel Outposts, Tallnecks, Vista Points, Survey Drones. Check your Notebook for anything incomplete.</div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ===== PHASE 7 ===== -->
+<div class="phase" id="p7">
+  <div class="phase-header" onclick="toggle('p7')">
+    <span class="arrow">▼</span>
+    <h2>Phase 7 — Endgame</h2>
+    <span class="lvl">Lv 32–35</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      Two final missions. <em>Wings of the Ten</em> includes a major boss fight and the <strong>Regalla choice</strong>. <em>Singularity</em> is the point of no return (though you can continue playing after credits). <span class="tag warning">Scan all Specters with your Focus during these missions!</span>
+    </div>
+
+    <div class="quest main"><span class="order">15</span><div class="quest-info">
+      <div class="quest-name">The Wings of the Ten <span class="quest-type">Main</span></div>
+      <div class="quest-reason">War against Regalla at Memorial Grove. Major boss fight. Afterward you must make the Regalla choice:<br>
+      <span class="tag choice">Kill Regalla</span> → Get <strong>Regalla's Wrath</strong> (Very Rare Sharpshot Bow, strong but outclassed by Arena's Forgefall later)<br>
+      <span class="tag choice">Spare Regalla</span> → Get <strong>Tenakth High Marshal outfit</strong> + she fights alongside you in the finale and gets a warrior's death (better narrative payoff). She dies either way — sparing gives a more satisfying arc.</div>
+    </div></div>
+
+    <div class="quest main"><span class="order">16</span><div class="quest-info">
+      <div class="quest-name">Singularity <span class="quest-type">Main — Final Mission</span></div>
+      <div class="quest-reason">Storm the Zenith base. Point of no return when you "Call Your Companions at the Campfire." After credits, the world remains open — you can continue all side content. No quests are permanently locked out.</div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ===== POST-GAME ===== -->
+<div class="phase" id="p8">
+  <div class="phase-header" onclick="toggle('p8')">
+    <span class="arrow">▼</span>
+    <h2>Post-Game & Burning Shores DLC</h2>
+    <span class="lvl">Post-credits</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      After Singularity, the world stays open. All side quests remain available (some dialogue may differ slightly). The <strong>Burning Shores DLC</strong> only starts after completing Singularity. Note: Burning Shores was originally PS5-exclusive but is included in the PC Complete Edition.
+    </div>
+
+    <div class="quest activity"><span class="order">▸</span><div class="quest-info">
+      <div class="quest-name">Any remaining side content <span class="quest-type">Cleanup</span></div>
+      <div class="quest-reason">Mop up anything you missed. Some companion NPCs (Erend, Kotallo) may be in different locations after the story.</div>
+    </div></div>
+
+    <div class="quest main"><span class="order">→</span><div class="quest-info">
+      <div class="quest-name">Burning Shores DLC <span class="quest-type">DLC Campaign</span></div>
+      <div class="quest-reason">New storyline in the Los Angeles area. Includes new legendary weapons (Specter Gauntlet, Skyhammer, Last Argument), a new Cauldron (THETA), and the continuation of Aloy's story. <span class="tag unlock">Requires: Singularity completed</span></div>
+    </div></div>
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<div class="footer">
+  Based on community research, wiki data, and optimal routing guides. Spoilers kept to minimum — quest names and tool/reward names only.<br>
+  Side quests within each phase can generally be done in any order unless dependencies are noted.
+</div>
+
+<script>
+function toggle(id) {
+  document.getElementById(id).classList.toggle('collapsed');
+}
+</script>
+</body>
+</html>
