@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horizon Forbidden West — Weapon Progression Roadmap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0e14;
+      --bg2: #111820;
+      --bg3: #19222e;
+      --text: #dce4ec;
+      --text-dim: #7a8da0;
+      --main: #e8443a;
+      --main-glow: rgba(232,68,58,0.25);
+      --green: #4caf50;
+      --blue: #1ca0e3;
+      --purple: #b26cff;
+      --legendary: #ff9800;
+      --buy: #44b849;
+      --skip: #ef4444;
+      --free: #ffd700;
+      --stier: #ff9800;
+      --atier: #1ca0e3;
+      --btier: #8b9cc0;
+      --ctier: #7a8da0;
+      --hunter: #e8443a;
+      --sharpshot: #1ca0e3;
+      --warrior: #c084fc;
+      --blastsling: #f472b6;
+      --spike: #ff9f1c;
+      --boltblaster: #6fc3a0;
+      --shredder: #c29f2a;
+      --tripcaster: #8b9cc0;
+      --ropecaster: #7a8da0;
+      --border: rgba(255,255,255,0.06);
+      --card-bg: rgba(17,24,32,0.85);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family:'Exo 2',sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height:1.55;
+      min-height:100vh;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0a0e14 0%, #152030 50%, #1a1510 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 24px 36px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero::before {
+      content:'';
+      position:absolute;
+      top:0;left:0;right:0;bottom:0;
+      background: radial-gradient(ellipse at 30% 80%, rgba(232,68,58,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 20%, rgba(28,160,227,0.06) 0%, transparent 50%);
+      pointer-events:none;
+    }
+    .hero h1 {
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;
+      font-size: clamp(28px,5vw,42px);
+      letter-spacing:3px;
+      text-transform:uppercase;
+      background: linear-gradient(90deg, var(--main), #ff7b54);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      position:relative;
+    }
+    .hero p {
+      color: var(--text-dim);
+      margin-top:10px;
+      font-size:14px;
+      max-width:680px;
+      margin-left:auto;margin-right:auto;
+    }
+    .hero a {
+      color:var(--main);
+      text-decoration:none;
+      border-bottom:1px solid rgba(232,68,58,0.4);
+    }
+
+    .legend {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 18px;
+      justify-content:center;
+      padding:14px 24px;
+      background: var(--bg2);
+      border-bottom:1px solid var(--border);
+      font-size:12px;
+      font-weight:500;
+    }
+    .legend span { display:flex;align-items:center;gap:5px; }
+    .legend .dot {
+      width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0;
+    }
+
+    .legend-section {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 18px;
+      justify-content:center;
+      padding:8px 24px 14px;
+      background: var(--bg2);
+      border-bottom:1px solid var(--border);
+      font-size:11px;
+      font-weight:500;
+      color: var(--text-dim);
+    }
+    .legend-section span { display:flex;align-items:center;gap:5px; }
+
+    .container {
+      max-width:900px;
+      margin:0 auto;
+      padding:24px 16px 64px;
+    }
+
+    .phase {
+      margin-bottom:32px;
+      border-radius:10px;
+      overflow:hidden;
+      border:1px solid var(--border);
+      background: var(--card-bg);
+      backdrop-filter:blur(8px);
+    }
+    .phase-header {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:14px 18px;
+      cursor:pointer;
+      user-select:none;
+      background: linear-gradient(90deg, rgba(232,68,58,0.08), transparent);
+      border-bottom:1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .phase-header:hover { background: linear-gradient(90deg, rgba(232,68,58,0.14), transparent); }
+    .phase-header .arrow {
+      font-size:14px;
+      transition:transform 0.25s;
+      color:var(--main);
+      flex-shrink:0;
+      width:16px;
+    }
+    .phase.collapsed .arrow { transform:rotate(-90deg); }
+    .phase-header h2 {
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;
+      font-size:18px;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      flex:1;
+    }
+    .phase-header .lvl {
+      font-size:12px;
+      color:var(--text-dim);
+      font-weight:500;
+      background:rgba(255,255,255,0.05);
+      padding:3px 10px;
+      border-radius:20px;
+      white-space:nowrap;
+    }
+    .phase-body { padding:6px 0; }
+    .phase.collapsed .phase-body { display:none; }
+
+    .weapon {
+      display:flex;
+      gap:12px;
+      padding:10px 18px;
+      align-items:flex-start;
+      border-left:3px solid transparent;
+      transition: background 0.15s;
+    }
+    .weapon:hover { background:rgba(255,255,255,0.02); }
+    .weapon.hunter { border-left-color: var(--hunter); }
+    .weapon.sharpshot { border-left-color: var(--sharpshot); }
+    .weapon.warrior { border-left-color: var(--warrior); }
+    .weapon.blastsling { border-left-color: var(--blastsling); }
+    .weapon.spike { border-left-color: var(--spike); }
+    .weapon.boltblaster { border-left-color: var(--boltblaster); }
+    .weapon.shredder { border-left-color: var(--shredder); }
+    .weapon.tripcaster { border-left-color: var(--tripcaster); }
+    .weapon.ropecaster { border-left-color: var(--ropecaster); }
+    .weapon.general { border-left-color: var(--text-dim); }
+
+    .weapon .tb {
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;
+      font-size:11px;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;
+      color:#fff;
+      margin-top:2px;
+      text-transform:uppercase;
+    }
+    .weapon .tb.t-g { background:var(--green); color:#0a0e14; }
+    .weapon .tb.t-b { background:var(--blue); }
+    .weapon .tb.t-p { background:var(--purple); }
+    .weapon .tb.t-l { background:var(--legendary); color:#0a0e14; }
+    .weapon .tb.t-i { background:rgba(255,255,255,0.08); color:var(--text-dim); font-size:14px; }
+    .weapon .tb.t-s { background:var(--stier); color:#0a0e14; font-size:11px; }
+
+    .wi { flex:1; min-width:0; }
+    .wn {
+      font-family:'Rajdhani',sans-serif;
+      font-weight:600;
+      font-size:15px;
+      letter-spacing:0.5px;
+    }
+    .wt {
+      font-size:10px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      margin-left:6px;
+      opacity:0.6;
+    }
+    .wd {
+      font-size:13px;
+      color:var(--text-dim);
+      margin-top:3px;
+      line-height:1.45;
+    }
+
+    .tag {
+      display:inline-block;
+      font-size:10px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:0.8px;
+      padding:2px 7px;
+      border-radius:3px;
+      margin-right:4px;
+      margin-top:4px;
+      vertical-align:middle;
+    }
+    .tag.buy { background:rgba(68,184,73,0.15); color:var(--buy); border:1px solid rgba(68,184,73,0.25); }
+    .tag.skip { background:rgba(239,68,68,0.12); color:var(--skip); border:1px solid rgba(239,68,68,0.2); }
+    .tag.free { background:rgba(255,215,0,0.12); color:var(--free); border:1px solid rgba(255,215,0,0.2); }
+    .tag.legendary { background:rgba(255,152,0,0.15); color:var(--legendary); border:1px solid rgba(255,152,0,0.25); }
+    .tag.unlock { background:rgba(255,159,28,0.15); color:#ff9f1c; border:1px solid rgba(255,159,28,0.25); }
+    .tag.reward { background:rgba(111,195,160,0.12); color:#6fc3a0; border:1px solid rgba(111,195,160,0.2); }
+    .tag.stier { background:rgba(255,152,0,0.15); color:var(--stier); border:1px solid rgba(255,152,0,0.25); }
+    .tag.atier { background:rgba(28,160,227,0.12); color:var(--atier); border:1px solid rgba(28,160,227,0.2); }
+    .tag.btier { background:rgba(139,156,192,0.12); color:var(--btier); border:1px solid rgba(139,156,192,0.2); }
+    .tag.ctier { background:rgba(122,141,160,0.1); color:var(--ctier); border:1px solid rgba(122,141,160,0.15); }
+    .tag.mustbuy { background:rgba(255,215,0,0.15); color:var(--free); border:1px solid rgba(255,215,0,0.25); }
+    .tag.arena { background:rgba(232,68,58,0.12); color:var(--main); border:1px solid rgba(232,68,58,0.2); }
+    .tag.activity { background:rgba(244,114,182,0.12); color:#f472b6; border:1px solid rgba(244,114,182,0.2); }
+
+    .note-box {
+      margin:8px 18px 12px;
+      padding:10px 14px;
+      font-size:12px;
+      line-height:1.5;
+      color:var(--text-dim);
+      background:rgba(232,68,58,0.04);
+      border:1px solid rgba(232,68,58,0.12);
+      border-radius:6px;
+    }
+    .note-box strong { color:var(--text); }
+    .note-box em { color:#ff9f1c; font-style:normal; }
+    .note-box.tip {
+      background:rgba(68,184,73,0.04);
+      border:1px solid rgba(68,184,73,0.12);
+    }
+    .note-box.upgrade {
+      background:rgba(178,108,255,0.04);
+      border:1px solid rgba(178,108,255,0.12);
+    }
+
+    .divider {
+      display:flex;align-items:center;gap:10px;
+      padding:14px 18px 6px;
+      font-family:'Rajdhani',sans-serif;
+      font-weight:600;
+      font-size:12px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:var(--text-dim);
+    }
+    .divider::after { content:'';flex:1;height:1px;background:var(--border); }
+
+    .combo-box {
+      margin:8px 18px 12px;
+      padding:10px 14px;
+      font-size:12px;
+      line-height:1.6;
+      color:var(--text-dim);
+      background:rgba(28,160,227,0.04);
+      border:1px solid rgba(28,160,227,0.12);
+      border-radius:6px;
+    }
+    .combo-box strong { color:var(--text); }
+
+    .checklist-box {
+      margin:6px 18px 10px;
+      border:1px dashed rgba(255,152,0,0.2);
+      border-radius:8px;
+      padding:12px 14px;
+      background:rgba(255,152,0,0.02);
+      position:relative;
+    }
+    .checklist-label {
+      position:absolute;
+      top:-9px;left:16px;
+      font-family:'Rajdhani',sans-serif;
+      font-weight:700;
+      font-size:11px;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      background:var(--bg2);
+      padding:0 8px;
+      color:var(--legendary);
+    }
+    .checklist-item {
+      display:flex;
+      align-items:flex-start;
+      gap:8px;
+      padding:5px 0;
+      font-size:13px;
+      color:var(--text-dim);
+      line-height:1.4;
+    }
+    .checklist-item .ch {
+      width:14px;height:14px;
+      border:1.5px solid rgba(255,152,0,0.4);
+      border-radius:2px;
+      flex-shrink:0;
+      margin-top:2px;
+      cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      transition: all 0.15s;
+      font-size:10px;
+      color:transparent;
+    }
+    .checklist-item .ch.checked {
+      background:rgba(255,152,0,0.2);
+      border-color:var(--legendary);
+      color:var(--legendary);
+    }
+    .checklist-item strong { color:var(--text); font-weight:600; }
+
+    .footer {
+      text-align:center;
+      padding:24px;
+      font-size:11px;
+      color:var(--text-dim);
+      border-top:1px solid var(--border);
+      max-width:900px;
+      margin:0 auto;
+    }
+    .footer a { color:var(--main);text-decoration:none;border-bottom:1px solid rgba(232,68,58,0.4); }
+
+    @media(max-width:600px) {
+      .hero { padding:32px 16px 24px; }
+      .weapon { padding:8px 12px; gap:8px; }
+      .phase-header { padding:12px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Weapon Progression Roadmap</h1>
+  <p>Every weapon worth buying, grabbing for free, or skipping — organized by roadmap phase so you always know what to pick up and when. Companion to the <a href="https://joancomasfdz.github.io/horizon-forbidden-west-roadmap/">Quest Roadmap</a>.</p>
+</div>
+
+<div class="legend">
+  <span><span class="dot" style="background:var(--hunter)"></span> Hunter Bow</span>
+  <span><span class="dot" style="background:var(--sharpshot)"></span> Sharpshot Bow</span>
+  <span><span class="dot" style="background:var(--warrior)"></span> Warrior Bow</span>
+  <span><span class="dot" style="background:var(--blastsling)"></span> Blastsling</span>
+  <span><span class="dot" style="background:var(--spike)"></span> Spike Thrower</span>
+  <span><span class="dot" style="background:var(--boltblaster)"></span> Boltblaster</span>
+  <span><span class="dot" style="background:var(--shredder)"></span> Shredder Gauntlet</span>
+  <span><span class="dot" style="background:var(--tripcaster)"></span> Tripcaster</span>
+  <span><span class="dot" style="background:var(--ropecaster)"></span> Ropecaster</span>
+</div>
+<div class="legend-section">
+  <span><span class="dot" style="background:var(--green);border-radius:50%;width:8px;height:8px;"></span> Uncommon</span>
+  <span><span class="dot" style="background:var(--blue);border-radius:50%;width:8px;height:8px;"></span> Rare</span>
+  <span><span class="dot" style="background:var(--purple);border-radius:50%;width:8px;height:8px;"></span> Very Rare</span>
+  <span><span class="dot" style="background:var(--legendary);border-radius:50%;width:8px;height:8px;"></span> Legendary</span>
+  <span style="margin-left:8px;">|</span>
+  <span><span class="tag buy" style="margin:0;">BUY</span></span>
+  <span><span class="tag free" style="margin:0;">FREE</span></span>
+  <span><span class="tag skip" style="margin:0;">SKIP</span></span>
+  <span><span class="tag mustbuy" style="margin:0;">MUST-BUY</span></span>
+</div>
+
+<div class="container">
+
+<!-- ===== PHASE 1 ===== -->
+<div class="phase" id="p1">
+  <div class="phase-header" onclick="toggle('p1')">
+    <span class="arrow">▼</span>
+    <h2>Phase 1 — The Daunt</h2>
+    <span class="lvl">Lv 3–7 · Uncommon Tier</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      Don't underestimate The Daunt — you can leave with <strong>6–7 weapons</strong> covering most combat situations. The <em>Prototype Spike Thrower</em> from "A Bigger Boom" is the single best early pickup in the entire game. Buy the <em>Sharpshot Bow</em> from Chainscrape — you'll use it for hours.
+    </div>
+
+    <div class="divider">Starting Weapons (Automatic)</div>
+
+    <div class="weapon hunter"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Hunter Bow <span class="wt">Hunter Bow</span></div>
+      <div class="wd">Aloy's default weapon. Hunter Arrows + Acid Arrows. Your bread-and-butter throughout the early game. Upgrade it to unlock an extra coil slot. <span class="tag free">Auto</span></div>
+    </div></div>
+
+    <div class="weapon blastsling"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Frost Blastsling <span class="wt">Blastsling</span></div>
+      <div class="wd">Given by Varl during "Reach for the Stars." Frost bombs for freezing machines into Brittle state. Essential elemental tool you'll keep for a while. <span class="tag free">Auto</span></div>
+    </div></div>
+
+    <div class="weapon general"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Champion's Spear <span class="wt">Spear</span></div>
+      <div class="wd">Upgraded spear from "The Point of the Lance." Your only melee weapon — invest in the Warrior skill tree. <span class="tag free">Auto</span></div>
+    </div></div>
+
+    <div class="divider">Chainscrape Merchant (after "To the Brink")</div>
+
+    <div class="weapon sharpshot"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Sharpshot Bow <span class="wt">Sharpshot Bow</span></div>
+      <div class="wd">~127 shards + Charger Circulator. Nearly double the damage of the Hunter Bow. Essential for sniping weak points and components from distance. <span class="tag buy">Buy</span> <span class="tag stier">Priority #1</span></div>
+    </div></div>
+
+    <div class="weapon hunter"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Fire Hunter Bow <span class="wt">Hunter Bow</span></div>
+      <div class="wd">~127 shards. Hunter Arrows + Fire Arrows. Decent if you want fire coverage early, but the default bow works fine. <span class="tag buy">Buy</span></div>
+    </div></div>
+
+    <div class="weapon warrior"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Warrior Bow <span class="wt">Warrior Bow</span></div>
+      <div class="wd">~149 shards. Short-range rapid fire. You get a better Shock variant for free below — save your shards. <span class="tag skip">Skip</span></div>
+    </div></div>
+
+    <div class="divider">Free Pickups — Don't Miss These!</div>
+
+    <div class="weapon spike"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Prototype Spike Thrower <span class="wt">Spike Thrower</span></div>
+      <div class="wd">Errand "A Bigger Boom" in Chainscrape (3 Charger Horns + 1 Fanghorn Rib). 20 impact + 70 explosive damage per spike. Community consensus: <strong>best early weapon in the game.</strong> Spike Throwers are an S-tier weapon type overall. <span class="tag free">Free · Quest</span> <span class="tag stier">S-Tier Type</span></div>
+    </div></div>
+
+    <div class="weapon warrior"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Shock Warrior Bow <span class="wt">Warrior Bow</span></div>
+      <div class="wd">Gifted by the Groundskeeper at The Daunt Hunting Grounds — just talk to him, no trials required. Shock damage at close range. <span class="tag free">Free · NPC Gift</span></div>
+    </div></div>
+
+    <div class="weapon tripcaster"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Shock Tripcaster <span class="wt">Tripcaster</span></div>
+      <div class="wd">Reward for completing "To the Brink." Tripcasters are generally the weakest weapon type in HFW — trap limits make them frustrating. Keep it situationally. <span class="tag free">Free · Quest</span> <span class="tag ctier">C-Tier Type</span></div>
+    </div></div>
+
+    <div class="weapon hunter"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Strongarm Hunter Bow <span class="wt">Hunter Bow</span></div>
+      <div class="wd">Found in a supply cache at the Rebel Camp "The Deadfalls," cleared during "The Bristlebacks." Free upgrade to your starting bow. <span class="tag free">Free · Supply Cache</span></div>
+    </div></div>
+
+    <div class="divider">Barren Light Merchant</div>
+
+    <div class="weapon blastsling"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Explosive Blastsling <span class="wt">Blastsling</span></div>
+      <div class="wd">~149 shards. High base damage and your only early source of Purgewater ammo. Worth it for the elemental coverage. <span class="tag buy">Buy</span></div>
+    </div></div>
+
+    <div class="weapon shredder"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Slicing Shredder Gauntlet <span class="wt">Shredder Gauntlet</span></div>
+      <div class="wd">~467 shards. First Shredder Gauntlet opportunity — the boomerang-disc weapon new to HFW. Very strong weapon type. Catch-and-rethrow increases damage. <span class="tag buy">Buy</span> <span class="tag stier">S-Tier Type</span></div>
+    </div></div>
+
+    <div class="weapon sharpshot"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Knockdown Sharpshot Bow <span class="wt">Sharpshot Bow</span></div>
+      <div class="wd">Barren Light. Obsolete by mid-game — the Hardweave (Phase 2) is better. <span class="tag skip">Skip</span></div>
+    </div></div>
+
+    <div class="note-box tip">
+      <strong>Recommended Phase 1 Loadout (~6 weapons):</strong> Hunter Bow (upgraded), Sharpshot Bow, Frost Blastsling, Prototype Spike Thrower, Shock Warrior Bow, Slicing Shredder Gauntlet. Covers ranged precision, elemental buildup, explosives, close-range shock, and the powerful disc mechanic.
+    </div>
+  </div>
+</div>
+
+<!-- ===== PHASE 2 ===== -->
+<div class="phase" id="p2">
+  <div class="phase-header" onclick="toggle('p2')">
+    <span class="arrow">▼</span>
+    <h2>Phase 2 — Into the Forbidden West (Post-Igniter)</h2>
+    <span class="lvl">Lv 7–17 · Rare Tier</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      After the <em>Igniter</em> ("Death's Door"), settlements like <strong>Plainsong</strong>, <strong>Scalding Spear</strong>, and the Carja Camp open up. Replace green weapons with blue (Rare) versions. The <em>Hardweave Sharpshot Bow</em> is your priority purchase — best early-game Sharpshot with a +25% Long-Range Damage perk.
+    </div>
+
+    <div class="divider">Plainsong Merchants</div>
+
+    <div class="weapon sharpshot"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Hardweave Sharpshot Bow <span class="wt">Sharpshot Bow</span></div>
+      <div class="wd">~549 shards. Plainsong Hunting Grounds / Carja Camp. +25% Long-Range Damage perk. Called "the best Sharpshot Bow in the early game" by multiple guides. <span class="tag buy">Buy</span> <span class="tag stier">Priority #1</span></div>
+    </div></div>
+
+    <div class="weapon hunter"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Slicing Hunter Bow <span class="wt">Hunter Bow</span></div>
+      <div class="wd">~549 shards. Blue-tier upgrade with Tear ammo type for stripping components. <span class="tag buy">Buy</span></div>
+    </div></div>
+
+    <div class="weapon hunter"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Sun-Touched Hunter Bow <span class="wt">Hunter Bow</span></div>
+      <div class="wd">~632 shards. Hunting Grounds vendor. Fire + Acid coverage. Not essential if you already have the Slicing. <span class="tag skip">Skip if tight on shards</span></div>
+    </div></div>
+
+    <div class="divider">Scalding Spear Merchant</div>
+
+    <div class="weapon boltblaster"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Shock Boltblaster <span class="wt">Boltblaster</span></div>
+      <div class="wd">~549 shards. Your first Boltblaster — the gatling-gun weapon type. Great sustained DPS but burns through ammo. Worth trying. <span class="tag buy">Buy</span></div>
+    </div></div>
+
+    <div class="weapon shredder"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Ironeater Shredder Gauntlet <span class="wt">Shredder Gauntlet</span></div>
+      <div class="wd">Acid + Frost disc. Upgrade from the Barren Light Shredder if you like the weapon type. <span class="tag buy">Buy</span></div>
+    </div></div>
+
+    <div class="weapon ropecaster"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Anchor Ropecaster <span class="wt">Ropecaster</span></div>
+      <div class="wd">Shock Ropes + Purgewater Canister Harpoons. Useful for pinning big machines but rarely worth a permanent wheel slot. <span class="tag skip">Situational</span> <span class="tag ctier">C-Tier Type</span></div>
+    </div></div>
+
+    <div class="divider">Free Quest Rewards</div>
+
+    <div class="weapon spike"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Sprinthorn Spike Thrower <span class="wt">Spike Thrower</span></div>
+      <div class="wd">Side quest "Signal Spike." Solid upgrade for your Spike Thrower slot. <span class="tag free">Free · Quest</span></div>
+    </div></div>
+
+    <div class="weapon sharpshot"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Piercing Sharpshot Bow <span class="wt">Sharpshot Bow</span></div>
+      <div class="wd">Supply cache at The Hive Rebel Camp. Has Strikethrough arrows. Can replace the Hardweave if you prefer Tear over Long-Range Damage. <span class="tag free">Free · Supply Cache</span></div>
+    </div></div>
+
+    <div class="note-box tip">
+      <strong>Recommended Phase 2 Loadout:</strong> Slicing Hunter Bow, Hardweave Sharpshot Bow, Frost Blastsling (keep from Phase 1), Sprinthorn Spike Thrower, Ironeater Shredder Gauntlet, Shock Boltblaster.
+    </div>
+  </div>
+</div>
+
+<!-- ===== PHASE 3 ===== -->
+<div class="phase" id="p3">
+  <div class="phase-header" onclick="toggle('p3')">
+    <span class="arrow">▼</span>
+    <h2>Phase 3 — The Three Branches</h2>
+    <span class="lvl">Lv 17–24 · Very Rare Tier</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      The big leap. The Diving Mask unlocks <em>Greenshine</em> collection (required for upgrading purple/legendary weapons). The key weapon pickup is the <em>Icestorm Boltblaster</em> from Abadund — universally considered the <strong>best mid-game purchase in the entire game</strong>. After "The Kulrut," the Arena opens for legendary weapon grinding.
+    </div>
+
+    <div class="divider">Must-Buy — Poseidon Branch (Sea of Sands)</div>
+
+    <div class="weapon boltblaster"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Icestorm Boltblaster <span class="wt">Boltblaster</span></div>
+      <div class="wd">~1,437 shards + Bellowback Circulator + Large Machine Core. Sold by <strong>Abadund</strong> in Hidden Ember during The Sea of Sands. Fires Frost, Plasma, and Shock bolts — three elements from one weapon slot. "Remains a mainstay even into the later stages of the game." <span class="tag mustbuy">Must-Buy</span> <span class="tag stier">S-Tier</span></div>
+    </div></div>
+
+    <div class="divider">Free — Aether Branch (The Broken Sky)</div>
+
+    <div class="weapon sharpshot"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Cleaving Sharpshot Bow <span class="wt">Sharpshot Bow</span></div>
+      <div class="wd">Given automatically during "The Broken Sky." +40% Draw Speed and +25% Component Tear perks. Excellent precision weapon at zero cost. <span class="tag free">Free · Quest</span></div>
+    </div></div>
+
+    <div class="divider">The Base Merchant (after "Cradle of Echoes")</div>
+
+    <div class="note-box">
+      The Hunter outside The Base sells the full <strong>Very Rare catalog</strong>. Each costs ~1,000–1,500 shards + machine Circulator + Large Machine Core. Don't buy them all — pick based on your playstyle.
+    </div>
+
+    <div class="weapon hunter"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Vanguard Hunter Bow <span class="wt">Hunter Bow</span></div>
+      <div class="wd">Acid + Fire Hunter Bow. The go-to purple Hunter Bow until Death-Seeker's Shadow from the Arena. <span class="tag buy">Buy</span></div>
+    </div></div>
+
+    <div class="weapon spike"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Pulverizing Spike Thrower <span class="wt">Spike Thrower</span></div>
+      <div class="wd">Big purple upgrade. Impact + Explosive spikes with higher base damage. Worth it if Spike Throwers are your main damage dealers. <span class="tag buy">Buy</span></div>
+    </div></div>
+
+    <div class="weapon blastsling"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Corrosive Blastsling <span class="wt">Blastsling</span></div>
+      <div class="wd">Acid + Adhesive + Purgewater. Best elemental coverage of any Blastsling. Essential setup tool for the Frost → Brittle combo. <span class="tag buy">Buy</span></div>
+    </div></div>
+
+    <div class="weapon sharpshot"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Delta Sharpshot Bow <span class="wt">Sharpshot Bow</span></div>
+      <div class="wd">Best pre-legendary Sharpshot. Advanced ammo types. Buy if you want a purple Sharpshot before earning Forgefall. <span class="tag buy">Buy</span></div>
+    </div></div>
+
+    <div class="weapon tripcaster"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Glowblast Tripcaster <span class="wt">Tripcaster</span></div>
+      <div class="wd">Tripcasters remain underwhelming in HFW due to trap limits. Only buy if you specifically enjoy the trap playstyle. <span class="tag skip">Skip for most</span> <span class="tag ctier">C-Tier Type</span></div>
+    </div></div>
+
+    <div class="weapon ropecaster"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Elite Ropecaster <span class="wt">Ropecaster</span></div>
+      <div class="wd">Useful for pinning Thunderjaws and Slaughterspines before unleashing damage. Not needed on lower difficulties. <span class="tag skip">Situational</span></div>
+    </div></div>
+
+    <div class="note-box upgrade">
+      <strong>Greenshine Tip:</strong> With the Diving Mask, explore all 8 <strong>Sunken Caverns</strong> immediately — they contain Greenshine Slivers, Chunks, and Clusters. Greenshine is finite and non-respawning. Save it for the weapons you'll use endgame.
+    </div>
+
+    <div class="combo-box">
+      <strong>The High-Damage Combo:</strong> Apply <strong>Frost</strong> with a Blastsling → trigger <strong>Brittle</strong> status → hit with a fully charged <strong>Spike Thrower</strong> or <strong>Sharpshot Bow</strong> for massive amplified damage. For the largest machines, pin them with a <strong>Ropecaster</strong> first, freeze them, then unload.
+    </div>
+  </div>
+</div>
+
+<!-- ===== PHASE 4 ===== -->
+<div class="phase" id="p4">
+  <div class="phase-header" onclick="toggle('p4')">
+    <span class="arrow">▼</span>
+    <h2>Phase 4 — Mid-Game Exploration Window</h2>
+    <span class="lvl">Lv 20–30 · Legendary Grind</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      With all tools unlocked and Arena access, <strong>legendary weapons become available</strong> through activity chains. Arena medals are the most valuable currency — three S/A-tier legendaries sit behind Dukkah at 80 medals each. Start grinding now.
+    </div>
+
+    <div class="divider">Arena Weapons (80 Medals Each from Dukkah)</div>
+
+    <div class="weapon hunter"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Death-Seeker's Shadow <span class="wt">Hunter Bow</span></div>
+      <div class="wd"><strong>Community #1 ranked weapon overall.</strong> Shock ammo, Targeting Hunter Arrows (guide overridden machines to attack), critical hit perks. The most versatile weapon in the base game. <span class="tag arena">80 Medals</span> <span class="tag stier">S-Tier</span></div>
+    </div></div>
+
+    <div class="weapon sharpshot"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Forgefall <span class="wt">Sharpshot Bow</span></div>
+      <div class="wd">Highest single-shot damage in the base game. Plasma sniper — charge shots devastate components. Strictly better than Regalla's Wrath. <span class="tag arena">80 Medals</span> <span class="tag stier">S-Tier</span></div>
+    </div></div>
+
+    <div class="weapon boltblaster"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">The Blast Forge <span class="wt">Boltblaster</span></div>
+      <div class="wd">Armor-piercing DPS machine. Relentless sustained fire. Pairs well with frozen targets. <span class="tag arena">80 Medals</span> <span class="tag atier">A-Tier</span></div>
+    </div></div>
+
+    <div class="divider">Activity Chain Legendaries</div>
+
+    <div class="weapon hunter"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">The Sun Scourge <span class="wt">Hunter Bow</span></div>
+      <div class="wd">Complete all 6 Rebel Camps (5 standard + "First Forge" — talk to Erend after clearing 5). Covers Fire, Frost, and Acid from one weapon slot. <span class="tag activity">6 Rebel Camps</span> <span class="tag atier">A-Tier</span></div>
+    </div></div>
+
+    <div class="weapon warrior"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Carja's Bane <span class="wt">Warrior Bow</span></div>
+      <div class="wd">Complete all 4 Gauntlet Runs. Top-tier close-range DPS but the races can be frustrating. <span class="tag activity">4 Gauntlet Runs</span> <span class="tag btier">B-Tier</span></div>
+    </div></div>
+
+    <div class="weapon tripcaster"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Tinker's Pride <span class="wt">Tripcaster</span></div>
+      <div class="wd">Full Stripes on all 12 Hunting Ground trials. Grindiest legendary to obtain, and Tripcasters remain the weakest weapon type. <span class="tag activity">12 Hunting Trials</span> <span class="tag ctier">C-Tier</span></div>
+    </div></div>
+
+    <div class="weapon blastsling"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Wings of the Ten <span class="wt">Blastsling</span></div>
+      <div class="wd">Trade all 12 Black Boxes to Untalla at Memorial Grove. Adhesive + Frost + Purgewater ammo. Solid elemental setup weapon. <span class="tag activity">12 Black Boxes</span> <span class="tag btier">B-Tier</span></div>
+    </div></div>
+
+    <div class="weapon shredder"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Ancestor's Return <span class="wt">Shredder Gauntlet</span></div>
+      <div class="wd">Collect 9 Ornaments from Relic Ruins + errand "Nights of Lights," give to Stemmur. The 4th-throw explosion is devastating. Rewards skilled catch-and-rethrow play. <span class="tag activity">9 Relic Ruins + Errand</span> <span class="tag atier">A-Tier</span></div>
+    </div></div>
+  </div>
+</div>
+
+<!-- ===== PHASE 5 ===== -->
+<div class="phase" id="p5">
+  <div class="phase-header" onclick="toggle('p5')">
+    <span class="arrow">▼</span>
+    <h2>Phase 5 — Sunwing & Endgame</h2>
+    <span class="lvl">Lv 30–35+ · Final Legendaries</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      After unlocking the Sunwing during "GEMINI," the last legendary weapon becomes available. The Regalla fight in "Wings of the Ten" offers a weapon vs. armor choice — <strong>spare Regalla for the armor</strong> since Forgefall (Arena) outclasses Regalla's Wrath.
+    </div>
+
+    <div class="divider">Late-Game Legendary</div>
+
+    <div class="weapon spike"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">The Skykiller <span class="wt">Spike Thrower</span></div>
+      <div class="wd">Side quest "The Way Home" at Legacy's Landfall (requires Sunwing). Talk to Harriem and Kristia on the ship. Explosive/Fire Spike Thrower. Pairs perfectly with Splitting Spike technique + Powershots Valor Surge. <span class="tag free">Free · Quest</span> <span class="tag stier">S-Tier</span></div>
+    </div></div>
+
+    <div class="divider">The Regalla Choice</div>
+
+    <div class="weapon sharpshot"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Regalla's Wrath <span class="wt">Sharpshot Bow</span></div>
+      <div class="wd">Kill Regalla → get this Very Rare Sharpshot Bow. Strong, but Forgefall (Arena) is strictly better. The Tenakth High Marshal armor from sparing Regalla is more valuable since you can't get it any other way. <span class="tag skip">Skip (spare Regalla)</span></div>
+    </div></div>
+
+    <div class="divider">Melee Pit Reward</div>
+
+    <div class="weapon general"><span class="tb t-i">⚔</span><div class="wi">
+      <div class="wn">+25% Spear Damage (permanent buff) <span class="wt">Melee</span></div>
+      <div class="wd">Complete all 4 Melee Pits + defeat The Enduring. No weapon drop, but a permanent passive buff to your spear. <span class="tag reward">Reward: Permanent Buff</span></div>
+    </div></div>
+
+    <div class="note-box tip">
+      <strong>No legendaries are missable.</strong> Every legendary weapon can be obtained in free-roam after the credits roll. The world stays fully open.
+    </div>
+  </div>
+</div>
+
+<!-- ===== LEGENDARY CHECKLIST ===== -->
+<div class="phase" id="p-check">
+  <div class="phase-header" onclick="toggle('p-check')">
+    <span class="arrow">▼</span>
+    <h2>Legendary Weapons Checklist</h2>
+    <span class="lvl">9 Base · 8 NG+ · 9 DLC</span>
+  </div>
+  <div class="phase-body">
+    <div class="checklist-box">
+      <span class="checklist-label">Base Game (9 Legendary Weapons)</span>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Death-Seeker's Shadow</strong> (Hunter Bow) — 80 Arena Medals</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Forgefall</strong> (Sharpshot Bow) — 80 Arena Medals</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>The Blast Forge</strong> (Boltblaster) — 80 Arena Medals</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>The Sun Scourge</strong> (Hunter Bow) — 6 Rebel Camps</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Carja's Bane</strong> (Warrior Bow) — 4 Gauntlet Runs</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Tinker's Pride</strong> (Tripcaster) — 12 Hunting Ground Trials</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Wings of the Ten</strong> (Blastsling) — 12 Black Boxes</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Ancestor's Return</strong> (Shredder Gauntlet) — 9 Relic Ruins + errand</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>The Skykiller</strong> (Spike Thrower) — Side quest "The Way Home"</span></div>
+    </div>
+
+    <div class="checklist-box" style="margin-top:16px;">
+      <span class="checklist-label">New Game+ (8 Legendary — 10 Champion's Tokens Each)</span>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Tears of the Land-God</strong> (Hunter Bow) — <span class="tag stier" style="margin:0">Best Hunter Bow in game</span></span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Iriv's Downfall</strong> (Sharpshot Bow) — Highest theoretical damage, very expensive ammo</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Brawlbreaker</strong> (Boltblaster) — <span class="tag ctier" style="margin:0">Worst legendary</span></span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Might of the Land-God</strong> (Blastsling)</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Claw of the Land-God</strong> (Shredder Gauntlet)</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Fang of the Land-God</strong> (Spike Thrower)</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Arms of the Land-God</strong> (Warrior Bow)</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Eyes of the Land-God</strong> (Tripcaster)</span></div>
+    </div>
+
+    <div class="checklist-box" style="margin-top:16px;">
+      <span class="checklist-label">Burning Shores DLC (9 Legendary Weapons)</span>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Last Argument</strong> (Spike Thrower) — <span class="tag stier" style="margin:0">Best weapon in game</span></span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Specter Gauntlet</strong> (Shredder Gauntlet) — Unique Zenith railgun attachment</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>The Tie That Binds</strong> (Ropecaster) — Only legendary Ropecaster</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Skyhammer</strong> (Boltblaster)</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Ember of the Land-God</strong> (Hunter Bow)</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Shockbite</strong> (Warrior Bow)</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Distant Thunder</strong> (Shredder Gauntlet) — High raw damage, no elements</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Final Shriek</strong> (Blastsling)</span></div>
+      <div class="checklist-item"><span class="ch" onclick="chk(this)">✓</span> <span><strong>Eagle's Call</strong> (Sharpshot Bow)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== UPGRADES & COILS ===== -->
+<div class="phase" id="p-upgrade">
+  <div class="phase-header" onclick="toggle('p-upgrade')">
+    <span class="arrow">▼</span>
+    <h2>Upgrade System & Coil Guide</h2>
+    <span class="lvl">Reference</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box upgrade">
+      <strong>Workbench Upgrades</strong> — Each level costs Metal Shards + specific machine parts. Higher-rarity weapons require <em>Greenshine</em> (finite, non-respawning). Max levels: Green = 3, Blue = 4, Purple = 5, Legendary = 5. Upgrades unlock stat boosts, new ammo types, perks, and coil slots.
+    </div>
+
+    <div class="divider">Coil Slots by Rarity</div>
+
+    <div class="weapon general"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Uncommon <span class="wt">Max 1 Coil</span></div>
+      <div class="wd">Upgrade freely — cheap materials. A fully upgraded green outperforms an un-upgraded blue.</div>
+    </div></div>
+
+    <div class="weapon general"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Rare <span class="wt">Max 2 Coils</span></div>
+      <div class="wd">Upgrade freely — still cheap. Will carry you through Phase 2–3.</div>
+    </div></div>
+
+    <div class="weapon general"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Very Rare <span class="wt">Max 3 Coils</span></div>
+      <div class="wd">Requires Greenshine. Only upgrade the 3–4 purples you'll use long-term.</div>
+    </div></div>
+
+    <div class="weapon general"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Legendary <span class="wt">Start 3 → Max 5 Coils</span></div>
+      <div class="wd">Powerful immediately at base level. Full upgrades = 5 coil slots. Focus Greenshine here. Enable <strong>"Easy Loot"</strong> in custom difficulty to guarantee Apex machine part drops.</div>
+    </div></div>
+
+    <div class="divider">Best Coils (Priority Order)</div>
+
+    <div class="weapon general"><span class="tb t-i">①</span><div class="wi">
+      <div class="wn">Instant Proc Coils <span class="wt">Instant Brittle / Corroding Chance</span></div>
+      <div class="wd">Trigger elemental states without elemental ammo. Game-changing on non-elemental weapons.</div>
+    </div></div>
+
+    <div class="weapon general"><span class="tb t-i">②</span><div class="wi">
+      <div class="wn">Component Tear +25% <span class="wt">Tear Coil</span></div>
+      <div class="wd">Essential on Sharpshot Bows and Shredder Gauntlets for stripping machine parts (and loot).</div>
+    </div></div>
+
+    <div class="weapon general"><span class="tb t-i">③</span><div class="wi">
+      <div class="wn">Stealth Damage +25% <span class="wt">Stealth Coil</span></div>
+      <div class="wd">Triggers with Smoke Bombs even mid-combat — not just from stealth grass. Huge damage multiplier.</div>
+    </div></div>
+
+    <div class="weapon general"><span class="tb t-i">④</span><div class="wi">
+      <div class="wn">Elite Overdraw Coils <span class="wt">Burning Shores DLC</span></div>
+      <div class="wd">Hidden +50% knockdown bonus. DLC-exclusive but incredibly powerful on Sharpshot and Hunter Bows.</div>
+    </div></div>
+
+    <div class="note-box tip">
+      <strong>Core coiling philosophy:</strong> Stack identical coils to amplify a weapon's primary strength rather than mixing unrelated stats. Three of the same modifier always outperforms three different ones. Coils can only boost a weapon's existing capabilities — a Fire coil won't work on a weapon without fire ammo.
+    </div>
+  </div>
+</div>
+
+<!-- ===== TIER LIST ===== -->
+<div class="phase" id="p-tiers">
+  <div class="phase-header" onclick="toggle('p-tiers')">
+    <span class="arrow">▼</span>
+    <h2>Community Weapon Type Tier List</h2>
+    <span class="lvl">Reference</span>
+  </div>
+  <div class="phase-body">
+    <div class="note-box">
+      Rankings synthesized from Reddit (r/horizon), GameRant, TheGamer, CBR, and community voting. This ranks <strong>weapon types</strong> overall. Your mileage may vary with playstyle.
+    </div>
+
+    <div class="weapon spike"><span class="tb t-s">S</span><div class="wi">
+      <div class="wn">Spike Throwers <span class="wt">S-Tier</span></div>
+      <div class="wd">Highest burst damage in the game. Explosive/Fire spikes devastate large machines. The Skykiller + Splitting Spike + Powershots = the biggest damage numbers possible.</div>
+    </div></div>
+
+    <div class="weapon shredder"><span class="tb t-s">S</span><div class="wi">
+      <div class="wn">Shredder Gauntlets <span class="wt">S-Tier</span></div>
+      <div class="wd">Catch-and-rethrow boomerangs that increase damage per catch. 4th throw triggers an explosion. Best Tear application in the game.</div>
+    </div></div>
+
+    <div class="weapon sharpshot"><span class="tb" style="background:var(--atier);font-size:11px;">A</span><div class="wi">
+      <div class="wn">Sharpshot Bows <span class="wt">A-Tier</span></div>
+      <div class="wd">Dominant single-target sniper damage. Forgefall's charged Plasma shots are devastating. Essential for weak point exploitation.</div>
+    </div></div>
+
+    <div class="weapon blastsling"><span class="tb" style="background:var(--atier);font-size:11px;">A</span><div class="wi">
+      <div class="wn">Blastslings <span class="wt">A-Tier</span></div>
+      <div class="wd">Essential elemental setup tool. Frost → Brittle is the foundation of the game's highest damage combos. Every loadout should include one.</div>
+    </div></div>
+
+    <div class="weapon hunter"><span class="tb" style="background:var(--atier);font-size:11px;">A</span><div class="wi">
+      <div class="wn">Hunter Bows <span class="wt">A-Tier</span></div>
+      <div class="wd">Solid generalists carried by legendary variants. Fast fire rate, good ammo variety. Never the best at anything but good at everything.</div>
+    </div></div>
+
+    <div class="weapon boltblaster"><span class="tb" style="background:var(--btier);font-size:11px;">B</span><div class="wi">
+      <div class="wn">Boltblasters <span class="wt">B-Tier</span></div>
+      <div class="wd">High sustained DPS but enormous ammo consumption. The Icestorm (purple) is S-tier individually, but the type overall is ammo-hungry and slow to reload.</div>
+    </div></div>
+
+    <div class="weapon warrior"><span class="tb" style="background:var(--btier);font-size:11px;">B</span><div class="wi">
+      <div class="wn">Warrior Bows <span class="wt">B-Tier</span></div>
+      <div class="wd">Close-range rapid-fire. Excellent in melee builds (pair with Resonator Blasts). Falls off at range.</div>
+    </div></div>
+
+    <div class="weapon ropecaster"><span class="tb t-i" style="font-size:11px;">C</span><div class="wi">
+      <div class="wn">Ropecasters <span class="wt">C-Tier</span></div>
+      <div class="wd">Utility tool for pinning large machines. Rarely worth a permanent wheel slot. No base-game legendary (DLC adds The Tie That Binds).</div>
+    </div></div>
+
+    <div class="weapon tripcaster"><span class="tb t-i" style="font-size:11px;">D</span><div class="wi">
+      <div class="wn">Tripcasters <span class="wt">D-Tier</span></div>
+      <div class="wd">Community consensus: "sadly very underwhelming" vs Zero Dawn. Restrictive trap limits, clunky in fluid combat. Tinker's Pride is the hardest legendary to earn for the least payoff.</div>
+    </div></div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  Based on community research from Reddit (r/horizon), GameFAQs, Game8, PowerPyx, TheGamer, CBR, and in-game data.<br>
+  Companion to the <a href="https://joancomasfdz.github.io/horizon-forbidden-west-roadmap/">Quest Roadmap</a>. No weapons are missable — everything is obtainable post-credits.
+</div>
+
+<script>
+  function toggle(id) { document.getElementById(id).classList.toggle('collapsed'); }
+  function chk(el) { el.classList.toggle('checked'); }
+</script>
+
+</body>
+</html>
