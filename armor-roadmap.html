@@ -3,1265 +3,539 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Armor Progression Roadmap</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Horizon Forbidden West — Armor Progression Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0c0e12;
-  --bg-card: #13161c;
-  --bg-card-hover: #181c24;
-  --bg-section: #10131a;
-  --border: #1e2430;
-  --border-light: #2a3040;
-  --text: #e2e4e8;
-  --text-dim: #8890a0;
-  --text-muted: #555e70;
-  --accent: #e87430;
-  --accent-glow: rgba(232,116,48,0.15);
-  /* Rarity */
-  --uncommon: #5fa85f;
-  --uncommon-bg: rgba(95,168,95,0.08);
-  --uncommon-border: rgba(95,168,95,0.25);
-  --rare: #4e8acc;
-  --rare-bg: rgba(78,138,204,0.08);
-  --rare-border: rgba(78,138,204,0.25);
-  --veryrare: #a05dc8;
-  --veryrare-bg: rgba(160,93,200,0.08);
-  --veryrare-border: rgba(160,93,200,0.25);
-  --legendary: #d4942a;
-  --legendary-bg: rgba(212,148,42,0.08);
-  --legendary-border: rgba(212,148,42,0.25);
-  /* Actions */
-  --buy: #4e8acc;
-  --free: #5fa85f;
-  --skip: #666e80;
-  --mustbuy: #e87430;
-  --quest: #c0a050;
-  /* Skill types */
-  --hunter: #cc6040;
-  --warrior: #cc4444;
-  --infiltrator: #5588cc;
-  --survivor: #55aa55;
-  --trapper: #aa8833;
-  --machinemaster: #8866bb;
-  --mixedgear: #cc8844;
+  --bg: #0a0e14;
+  --bg2: #111820;
+  --bg3: #19222e;
+  --text: #dce4ec;
+  --text-dim: #7a8da0;
+  --main: #e8443a;
+  --main-glow: rgba(232,68,58,0.25);
+  --green: #4caf50;
+  --blue: #1ca0e3;
+  --purple: #b26cff;
+  --legendary: #ff9800;
+  --buy: #44b849;
+  --skip: #ef4444;
+  --free: #ffd700;
+  --stier: #ff9800;
+  --atier: #1ca0e3;
+  --btier: #8b9cc0;
+  --ctier: #7a8da0;
+  --hunter: #e8443a;
+  --warrior: #c084fc;
+  --infiltrator: #1ca0e3;
+  --survivor: #4caf50;
+  --trapper: #c29f2a;
+  --machinemaster: #8b6cbb;
+  --mixedgear: #ff9f1c;
+  --border: rgba(255,255,255,0.06);
+  --card-bg: rgba(17,24,32,0.85);
 }
-
 * { margin:0; padding:0; box-sizing:border-box; }
-
 body {
+  font-family:'Exo 2',sans-serif;
   background: var(--bg);
   color: var(--text);
-  font-family: 'Barlow', sans-serif;
-  font-weight: 400;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
+  line-height:1.55;
+  min-height:100vh;
 }
-
-/* ── Layout ── */
-.container {
-  max-width: 820px;
-  margin: 0 auto;
-  padding: 0 20px 80px;
+.hero {
+  background: linear-gradient(135deg, #0a0e14 0%, #152030 50%, #1a1510 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 24px 36px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
 }
-
-/* ── Header ── */
-.page-header {
-  text-align: center;
-  padding: 60px 0 40px;
-  position: relative;
-}
-.page-header::after {
+.hero::before {
   content:'';
-  position: absolute;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 120px; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  background: radial-gradient(ellipse at 30% 80%, rgba(232,68,58,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 20%, rgba(28,160,227,0.06) 0%, transparent 50%);
+  pointer-events:none;
 }
-.page-supertitle {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 500;
-  font-size: 13px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 10px;
+.hero h1 {
+  font-family:'Rajdhani',sans-serif;
+  font-weight:700;
+  font-size: clamp(28px,5vw,42px);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  background: linear-gradient(90deg, var(--main), #ff7b54);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  position:relative;
 }
-.page-title {
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 700;
-  font-size: clamp(28px, 5vw, 42px);
-  line-height: 1.15;
-  color: #fff;
-  letter-spacing: 0.5px;
-}
-.page-subtitle {
-  font-size: 14.5px;
+.hero p {
   color: var(--text-dim);
-  margin-top: 14px;
-  max-width: 620px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.55;
+  margin-top:10px;
+  font-size:14px;
+  max-width:680px;
+  margin-left:auto;margin-right:auto;
 }
-.page-subtitle a {
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(232,116,48,0.3);
+.hero a {
+  color:var(--main);
+  text-decoration:none;
+  border-bottom:1px solid rgba(232,68,58,0.4);
 }
-.page-subtitle a:hover { border-bottom-color: var(--accent); }
-
-/* ── Legend ── */
 .legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px 28px;
-  justify-content: center;
-  padding: 24px 0;
-  margin: 24px 0 8px;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 18px;
+  justify-content:center;
+  padding:14px 24px;
+  background: var(--bg2);
+  border-bottom:1px solid var(--border);
+  font-size:12px;
+  font-weight:500;
 }
-.legend-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 16px;
-  align-items: center;
-}
-.legend-group-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  width: 100%;
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12.5px;
+.legend span { display:flex;align-items:center;gap:5px; }
+.legend .dot { width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0; }
+.legend-section {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 18px;
+  justify-content:center;
+  padding:8px 24px 14px;
+  background: var(--bg2);
+  border-bottom:1px solid var(--border);
+  font-size:11px;
+  font-weight:500;
   color: var(--text-dim);
 }
-.legend-swatch {
-  width: 10px; height: 10px;
-  border-radius: 2px;
-}
-.legend-tag {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 3px;
-  border: 1px solid;
-}
-
-/* ── Phase Connector ── */
-.phase-connector {
-  text-align: center;
-  padding: 28px 0 8px;
-  font-size: 20px;
-  color: var(--text-muted);
-  position: relative;
-}
-.phase-connector::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%;
-  width: 1px; height: 20px;
-  background: var(--border-light);
-}
-
-/* ── Phase ── */
+.legend-section span { display:flex;align-items:center;gap:5px; }
+.container { max-width:900px; margin:0 auto; padding:24px 16px 64px; }
 .phase {
-  margin-top: 8px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--bg-section);
-  overflow: hidden;
+  margin-bottom:32px;
+  border-radius:10px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  background: var(--card-bg);
+  backdrop-filter:blur(8px);
 }
-.phase-head {
-  padding: 28px 28px 20px;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  user-select: none;
+.phase-header {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 18px;
+  cursor:pointer;
+  user-select:none;
+  background: linear-gradient(90deg, rgba(232,68,58,0.08), transparent);
+  border-bottom:1px solid var(--border);
   transition: background 0.2s;
 }
-.phase-head:hover { background: rgba(255,255,255,0.015); }
-.phase-number {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.phase-name {
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 700;
-  font-size: clamp(22px, 4vw, 30px);
-  color: #fff;
-  margin: 4px 0;
-  line-height: 1.2;
-}
-.phase-meta {
-  font-size: 13px;
-  color: var(--text-muted);
-  font-family: 'Barlow Condensed', sans-serif;
-  letter-spacing: 0.5px;
-}
-.phase-intro {
-  padding: 0 28px;
-  font-size: 14px;
-  color: var(--text-dim);
-  line-height: 1.65;
-  margin: 16px 0 4px;
-}
-.phase-intro em { color: var(--text); font-style: italic; }
-.phase-intro strong { color: #fff; font-weight: 600; }
-
-.phase-body { padding: 8px 16px 20px; }
-
-/* ── Card Group ── */
-.card-group {
-  margin: 16px 0 8px;
-}
-.card-group-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 6px;
-}
-
-/* ── Armor Card ── */
-.armor-card {
-  display: grid;
-  grid-template-columns: 42px 1fr auto;
-  gap: 0 14px;
-  align-items: start;
-  padding: 14px 12px;
-  border-radius: 8px;
-  transition: background 0.15s;
-  border: 1px solid transparent;
-}
-.armor-card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border);
-}
-
-.rarity-pip {
-  width: 42px; height: 42px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 700;
-  font-size: 15px;
-  color: #fff;
-  flex-shrink: 0;
-  border: 1px solid;
-}
-.rarity-pip.uncommon   { background: var(--uncommon-bg); border-color: var(--uncommon-border); color: var(--uncommon); }
-.rarity-pip.rare       { background: var(--rare-bg); border-color: var(--rare-border); color: var(--rare); }
-.rarity-pip.veryrare   { background: var(--veryrare-bg); border-color: var(--veryrare-border); color: var(--veryrare); }
-.rarity-pip.legendary  { background: var(--legendary-bg); border-color: var(--legendary-border); color: var(--legendary); }
-
-.armor-info { min-width: 0; }
-.armor-name {
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 600;
-  font-size: 16.5px;
-  color: #fff;
-  line-height: 1.25;
-}
-.armor-type-tag {
-  display: inline-block;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 600;
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 1px 7px;
-  border-radius: 3px;
-  margin-left: 6px;
-  vertical-align: middle;
-  position: relative;
-  top: -1px;
-  border: 1px solid;
-}
-.type-hunter       { color: var(--hunter);       border-color: rgba(204,96,64,0.4);  background: rgba(204,96,64,0.1); }
-.type-warrior      { color: var(--warrior);      border-color: rgba(204,68,68,0.4);  background: rgba(204,68,68,0.1); }
-.type-infiltrator  { color: var(--infiltrator);  border-color: rgba(85,136,204,0.4); background: rgba(85,136,204,0.1); }
-.type-survivor     { color: var(--survivor);     border-color: rgba(85,170,85,0.4);  background: rgba(85,170,85,0.1); }
-.type-trapper      { color: var(--trapper);      border-color: rgba(170,136,51,0.4); background: rgba(170,136,51,0.1); }
-.type-machinemaster{ color: var(--machinemaster);border-color: rgba(136,102,187,0.4);background: rgba(136,102,187,0.1);}
-.type-mixedgear    { color: var(--mixedgear);    border-color: rgba(204,136,68,0.4); background: rgba(204,136,68,0.1); }
-
-.armor-desc {
-  font-size: 13.5px;
-  color: var(--text-dim);
-  line-height: 1.55;
-  margin-top: 3px;
-}
-.armor-desc strong { color: var(--text); font-weight: 600; }
-
-.armor-skills {
-  margin-top: 5px;
-  font-size: 12px;
-  color: var(--text-muted);
-  font-family: 'Barlow Condensed', sans-serif;
-  letter-spacing: 0.3px;
-}
-.armor-skills span { color: var(--text-dim); }
-
-.armor-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 4px;
-  padding-top: 2px;
-}
-
-.action-tag {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 600;
-  font-size: 10.5px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 3px 10px;
-  border-radius: 4px;
-  white-space: nowrap;
-  border: 1px solid;
-}
-.action-buy      { color: var(--buy);     border-color: rgba(78,138,204,0.35);  background: rgba(78,138,204,0.08); }
-.action-free     { color: var(--free);    border-color: rgba(95,168,95,0.35);   background: rgba(95,168,95,0.08); }
-.action-skip     { color: var(--skip);    border-color: rgba(102,110,128,0.35); background: rgba(102,110,128,0.08); }
-.action-mustbuy  { color: var(--mustbuy); border-color: rgba(232,116,48,0.35);  background: rgba(232,116,48,0.08); }
-.action-quest    { color: var(--quest);   border-color: rgba(192,160,80,0.35);  background: rgba(192,160,80,0.08); }
-.action-arena    { color: var(--legendary);border-color: rgba(212,148,42,0.35); background: rgba(212,148,42,0.08); }
-.action-salvage  { color: #cc8866;        border-color: rgba(204,136,102,0.35); background: rgba(204,136,102,0.08); }
-
-.tier-tag {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 10px;
-  letter-spacing: 1px;
-  padding: 2px 7px;
-  border-radius: 3px;
-  white-space: nowrap;
-}
-.tier-s { color: #f0c040; background: rgba(240,192,64,0.12); border: 1px solid rgba(240,192,64,0.3); }
-.tier-a { color: #60cc60; background: rgba(96,204,96,0.1);   border: 1px solid rgba(96,204,96,0.25); }
-.tier-b { color: #6699cc; background: rgba(102,153,204,0.1); border: 1px solid rgba(102,153,204,0.25); }
-.tier-c { color: #999;    background: rgba(153,153,153,0.08);border: 1px solid rgba(153,153,153,0.2); }
-
-/* ── Recommended Box ── */
-.rec-box {
-  margin: 16px 12px 8px;
-  padding: 16px 18px;
-  background: var(--accent-glow);
-  border: 1px solid rgba(232,116,48,0.2);
-  border-radius: 8px;
-  font-size: 13.5px;
-  color: var(--text-dim);
-  line-height: 1.6;
-}
-.rec-box strong { color: #fff; }
-.rec-box em { color: var(--accent); font-style: normal; font-weight: 500; }
-
-/* ── Info Box ── */
-.info-box {
-  margin: 16px 12px 8px;
-  padding: 16px 18px;
-  background: rgba(78,138,204,0.06);
-  border: 1px solid rgba(78,138,204,0.15);
-  border-radius: 8px;
-  font-size: 13.5px;
-  color: var(--text-dim);
-  line-height: 1.6;
-}
-.info-box strong { color: #fff; }
-
-/* ── Warning Box ── */
-.warn-box {
-  margin: 16px 12px 8px;
-  padding: 16px 18px;
-  background: rgba(204,68,68,0.06);
-  border: 1px solid rgba(204,68,68,0.18);
-  border-radius: 8px;
-  font-size: 13.5px;
-  color: var(--text-dim);
-  line-height: 1.6;
-}
-.warn-box strong { color: #fff; }
-
-/* ── Resistance Bar ── */
-.resist-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 8px;
-  margin-top: 5px;
-}
-.resist-pip {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10.5px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  padding: 1px 6px;
-  border-radius: 3px;
-  border: 1px solid;
-}
-.resist-pos { color: #66bb66; border-color: rgba(102,187,102,0.25); background: rgba(102,187,102,0.06); }
-.resist-neg { color: #cc6666; border-color: rgba(204,102,102,0.25); background: rgba(204,102,102,0.06); }
-
-/* ── Footer ── */
-.page-footer {
-  text-align: center;
-  padding: 40px 0 20px;
-  font-size: 12.5px;
-  color: var(--text-muted);
-  border-top: 1px solid var(--border);
-  margin-top: 40px;
-  line-height: 1.7;
-}
-.page-footer a { color: var(--accent); text-decoration: none; }
-
-/* ── Responsive ── */
-@media (max-width: 600px) {
-  .armor-card { grid-template-columns: 36px 1fr; }
-  .armor-actions { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; margin-top: 6px; }
-  .phase-head, .phase-intro { padding-left: 20px; padding-right: 20px; }
-  .phase-body { padding: 8px 8px 16px; }
-  .legend { gap: 12px 20px; }
+.phase-header:hover { background: linear-gradient(90deg, rgba(232,68,58,0.14), transparent); }
+.phase-header .arrow { font-size:14px; transition:transform 0.25s; color:var(--main); flex-shrink:0; width:16px; }
+.phase.collapsed .arrow { transform:rotate(-90deg); }
+.phase-header h2 { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:18px; letter-spacing:1.5px; text-transform:uppercase; flex:1; }
+.phase-header .lvl { font-size:12px; color:var(--text-dim); font-weight:500; background:rgba(255,255,255,0.05); padding:3px 10px; border-radius:20px; white-space:nowrap; }
+.phase-body { padding:6px 0; }
+.phase.collapsed .phase-body { display:none; }
+.weapon { display:flex; gap:12px; padding:10px 18px; align-items:flex-start; border-left:3px solid transparent; transition: background 0.15s; }
+.weapon:hover { background:rgba(255,255,255,0.02); }
+.weapon.hunter { border-left-color: var(--hunter); }
+.weapon.warrior { border-left-color: var(--warrior); }
+.weapon.infiltrator { border-left-color: var(--infiltrator); }
+.weapon.survivor { border-left-color: var(--survivor); }
+.weapon.trapper { border-left-color: var(--trapper); }
+.weapon.machinemaster { border-left-color: var(--machinemaster); }
+.weapon.mixedgear { border-left-color: var(--mixedgear); }
+.weapon.general { border-left-color: var(--text-dim); }
+.weapon .tb { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:11px; width:28px; height:28px; border-radius:50%; display:flex;align-items:center;justify-content:center; flex-shrink:0; color:#fff; margin-top:2px; text-transform:uppercase; }
+.weapon .tb.t-g { background:var(--green); color:#0a0e14; }
+.weapon .tb.t-b { background:var(--blue); }
+.weapon .tb.t-p { background:var(--purple); }
+.weapon .tb.t-l { background:var(--legendary); color:#0a0e14; }
+.weapon .tb.t-i { background:rgba(255,255,255,0.08); color:var(--text-dim); font-size:14px; }
+.weapon .tb.t-s { background:var(--stier); color:#0a0e14; font-size:11px; }
+.wi { flex:1; min-width:0; }
+.wn { font-family:'Rajdhani',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.5px; }
+.wt { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-left:6px; opacity:0.6; }
+.wd { font-size:13px; color:var(--text-dim); margin-top:3px; line-height:1.45; }
+.tag { display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; padding:2px 7px; border-radius:3px; margin-right:4px; margin-top:4px; vertical-align:middle; }
+.tag.buy { background:rgba(68,184,73,0.15); color:var(--buy); border:1px solid rgba(68,184,73,0.25); }
+.tag.skip { background:rgba(239,68,68,0.12); color:var(--skip); border:1px solid rgba(239,68,68,0.2); }
+.tag.free { background:rgba(255,215,0,0.12); color:var(--free); border:1px solid rgba(255,215,0,0.2); }
+.tag.legendary { background:rgba(255,152,0,0.15); color:var(--legendary); border:1px solid rgba(255,152,0,0.25); }
+.tag.unlock { background:rgba(255,159,28,0.15); color:#ff9f1c; border:1px solid rgba(255,159,28,0.25); }
+.tag.reward { background:rgba(111,195,160,0.12); color:#6fc3a0; border:1px solid rgba(111,195,160,0.2); }
+.tag.stier { background:rgba(255,152,0,0.15); color:var(--stier); border:1px solid rgba(255,152,0,0.25); }
+.tag.atier { background:rgba(28,160,227,0.12); color:var(--atier); border:1px solid rgba(28,160,227,0.2); }
+.tag.btier { background:rgba(139,156,192,0.12); color:var(--btier); border:1px solid rgba(139,156,192,0.2); }
+.tag.ctier { background:rgba(122,141,160,0.1); color:var(--ctier); border:1px solid rgba(122,141,160,0.15); }
+.tag.mustbuy { background:rgba(255,215,0,0.15); color:var(--free); border:1px solid rgba(255,215,0,0.25); }
+.tag.arena { background:rgba(232,68,58,0.12); color:var(--main); border:1px solid rgba(232,68,58,0.2); }
+.tag.activity { background:rgba(244,114,182,0.12); color:#f472b6; border:1px solid rgba(244,114,182,0.2); }
+.resist { display:inline-block; font-size:10px; font-weight:600; letter-spacing:0.5px; padding:1px 6px; border-radius:3px; margin-right:3px; margin-top:3px; }
+.resist.pos { background:rgba(76,175,80,0.1); color:#6fc3a0; border:1px solid rgba(76,175,80,0.2); }
+.resist.neg { background:rgba(239,68,68,0.08); color:#ef6666; border:1px solid rgba(239,68,68,0.15); }
+.note-box { margin:8px 18px 12px; padding:10px 14px; font-size:12px; line-height:1.5; color:var(--text-dim); background:rgba(232,68,58,0.04); border:1px solid rgba(232,68,58,0.12); border-radius:6px; }
+.note-box strong { color:var(--text); }
+.note-box em { color:#ff9f1c; font-style:normal; }
+.note-box.tip { background:rgba(68,184,73,0.04); border:1px solid rgba(68,184,73,0.12); }
+.note-box.upgrade { background:rgba(178,108,255,0.04); border:1px solid rgba(178,108,255,0.12); }
+.note-box.warn { background:rgba(239,68,68,0.04); border:1px solid rgba(239,68,68,0.15); }
+.combo-box { margin:8px 18px 12px; padding:10px 14px; font-size:12px; line-height:1.6; color:var(--text-dim); background:rgba(28,160,227,0.04); border:1px solid rgba(28,160,227,0.12); border-radius:6px; }
+.combo-box strong { color:var(--text); }
+.divider { display:flex;align-items:center;gap:10px; padding:14px 18px 6px; font-family:'Rajdhani',sans-serif; font-weight:600; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--text-dim); }
+.divider::after { content:'';flex:1;height:1px;background:var(--border); }
+.footer { text-align:center; padding:24px; font-size:11px; color:var(--text-dim); border-top:1px solid var(--border); max-width:900px; margin:0 auto; }
+.footer a { color:var(--main);text-decoration:none;border-bottom:1px solid rgba(232,68,58,0.4); }
+@media(max-width:600px) {
+  .hero { padding:32px 16px 24px; }
+  .weapon { padding:8px 12px; gap:8px; }
+  .phase-header { padding:12px; }
 }
 </style>
 </head>
 <body>
 
+<div class="hero">
+  <h1>Armor Progression Roadmap</h1>
+  <p>Every outfit worth buying, earning, or skipping — organized by roadmap phase so you always know what to wear and when. Companion to the <a href="https://joancomasfdz.github.io/horizon-forbidden-west-roadmap/">Quest Roadmap</a> and <a href="https://joancomasfdz.github.io/horizon-forbidden-west-roadmap/weapon-roadmap.html">Weapon Roadmap</a>.</p>
+</div>
+
+<div class="legend">
+  <span><span class="dot" style="background:var(--hunter)"></span> Hunter</span>
+  <span><span class="dot" style="background:var(--warrior)"></span> Warrior</span>
+  <span><span class="dot" style="background:var(--infiltrator)"></span> Infiltrator</span>
+  <span><span class="dot" style="background:var(--survivor)"></span> Survivor</span>
+  <span><span class="dot" style="background:var(--trapper)"></span> Trapper</span>
+  <span><span class="dot" style="background:var(--machinemaster)"></span> Machine Master</span>
+  <span><span class="dot" style="background:var(--mixedgear)"></span> Mixed Gear</span>
+</div>
+
+<div class="legend-section">
+  <span><span class="dot" style="background:var(--green);border-radius:50%;width:8px;height:8px;"></span> Uncommon</span>
+  <span><span class="dot" style="background:var(--blue);border-radius:50%;width:8px;height:8px;"></span> Rare</span>
+  <span><span class="dot" style="background:var(--purple);border-radius:50%;width:8px;height:8px;"></span> Very Rare</span>
+  <span><span class="dot" style="background:var(--legendary);border-radius:50%;width:8px;height:8px;"></span> Legendary</span>
+  <span style="margin-left:8px;">|</span>
+  <span><span class="tag buy" style="margin:0;">BUY</span></span>
+  <span><span class="tag free" style="margin:0;">FREE</span></span>
+  <span><span class="tag skip" style="margin:0;">SKIP</span></span>
+  <span><span class="tag mustbuy" style="margin:0;">MUST-BUY</span></span>
+</div>
+
 <div class="container">
 
-<!-- ════════════════ HEADER ════════════════ -->
-<header class="page-header">
-  <div class="page-supertitle">Horizon Forbidden West</div>
-  <h1 class="page-title">Armor Progression Roadmap</h1>
-  <p class="page-subtitle">Every outfit worth buying, earning, or skipping — organized by roadmap phase so you always know what to wear and when. Companion to the <a href="https://joancomasfdz.github.io/horizon-forbidden-west-roadmap/">Quest Roadmap</a> and <a href="https://joancomasfdz.github.io/horizon-forbidden-west-roadmap/weapon-roadmap.html">Weapon Roadmap</a>.</p>
-</header>
-
-<!-- ════════════════ LEGEND ════════════════ -->
-<div class="legend">
-  <div class="legend-group">
-    <div class="legend-group-label">Skill Tree Type</div>
-    <span class="legend-item"><span class="armor-type-tag type-hunter" style="margin:0">Hunter</span></span>
-    <span class="legend-item"><span class="armor-type-tag type-warrior" style="margin:0">Warrior</span></span>
-    <span class="legend-item"><span class="armor-type-tag type-infiltrator" style="margin:0">Infiltrator</span></span>
-    <span class="legend-item"><span class="armor-type-tag type-survivor" style="margin:0">Survivor</span></span>
-    <span class="legend-item"><span class="armor-type-tag type-trapper" style="margin:0">Trapper</span></span>
-    <span class="legend-item"><span class="armor-type-tag type-machinemaster" style="margin:0">Machine Master</span></span>
-    <span class="legend-item"><span class="armor-type-tag type-mixedgear" style="margin:0">Mixed Gear</span></span>
+<!-- ===== PHASE 1 ===== -->
+<div class="phase" id="p1">
+  <div class="phase-header" onclick="toggle('p1')">
+    <span class="arrow">▼</span>
+    <h2>Phase 1 — The Daunt</h2>
+    <span class="lvl">Lv 3–7 · Uncommon Tier</span>
   </div>
-  <div class="legend-group">
-    <div class="legend-group-label">Rarity</div>
-    <span class="legend-item"><span class="legend-swatch" style="background:var(--uncommon)"></span> Uncommon</span>
-    <span class="legend-item"><span class="legend-swatch" style="background:var(--rare)"></span> Rare</span>
-    <span class="legend-item"><span class="legend-swatch" style="background:var(--veryrare)"></span> Very Rare</span>
-    <span class="legend-item"><span class="legend-swatch" style="background:var(--legendary)"></span> Legendary</span>
-  </div>
-  <div class="legend-group">
-    <div class="legend-group-label">Action</div>
-    <span class="legend-item"><span class="legend-tag action-buy">Buy</span></span>
-    <span class="legend-item"><span class="legend-tag action-free">Free</span></span>
-    <span class="legend-item"><span class="legend-tag action-skip">Skip</span></span>
-    <span class="legend-item"><span class="legend-tag action-mustbuy">Must-Buy</span></span>
+  <div class="phase-body">
+    <div class="note-box">
+      Your starting armor is better than you think. The <em>Nora Anointed</em> has relevant Acid resistance for Bristlebacks and healing bonuses — <strong>don't replace it prematurely</strong>. Save your shards for Phase 2.
+    </div>
+    <div class="divider">Starting Outfit (Automatic)</div>
+    <div class="weapon hunter"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Nora Anointed <span class="wt">Hunter</span></div>
+      <div class="wd">Aloy's default outfit. <strong>+1 Concentration Regen, +1 Potent Medicine</strong> (20% healing bonus). Acid +25 and Shock +25 resist — directly relevant against Bristlebacks. Upgrade once or twice. <span class="tag free">Auto</span> <span class="tag atier">A-Tier</span><br><span class="resist pos">Acid +25</span> <span class="resist pos">Shock +25</span></div>
+    </div></div>
+    <div class="divider">Chainscrape Stitcher (~85 shards each)</div>
+    <div class="weapon infiltrator"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Nora Huntress <span class="wt">Infiltrator</span></div>
+      <div class="wd">Low Profile + Silent Strike Heal for pure stealth. Near-zero elemental resistances — getting spotted is punishing. <span class="tag skip">Skip</span></div>
+    </div></div>
+    <div class="weapon warrior"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Oseram Explorer <span class="wt">Warrior</span></div>
+      <div class="wd">Critical Strike+ and Power Attack+ with <strong>13 base melee resistance</strong> vs. the Anointed's 5. Genuinely better for spear combat. Zero elemental coverage. <span class="tag buy">Buy</span> <span class="tag btier">Melee Only</span></div>
+    </div></div>
+    <div class="divider">Free Pickup</div>
+    <div class="weapon infiltrator"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Nora Champion <span class="wt">Infiltrator</span></div>
+      <div class="wd">Side quest <strong>"The Bristlebacks"</strong> in The Daunt. +1 Concentration+, +1 Stealth Ranged+. Free stealth-archer outfit — grab it, don't upgrade it. <span class="tag free">Free · Quest</span></div>
+    </div></div>
+    <div class="note-box tip">
+      <strong>Recommended Phase 1:</strong> Stick with the <em>Nora Anointed</em>. Upgrade it once or twice. If melee-focused, grab the <em>Oseram Explorer</em>. Pick up the <em>Nora Champion</em> for free but don't invest materials.
+    </div>
   </div>
 </div>
 
-<!-- ════════════════ PHASE 1 ════════════════ -->
-<div class="phase-connector">▼</div>
-
-<section class="phase">
-  <div class="phase-head">
-    <div class="phase-number">Phase 1</div>
-    <h2 class="phase-name">The Daunt</h2>
-    <div class="phase-meta">Lv 3–7 · Uncommon Tier</div>
-  </div>
-  <div class="phase-intro">
-    Your starting armor is better than you think. The <em>Nora Anointed</em> has relevant Acid resistance for Bristlebacks and healing bonuses — <strong>don't replace it prematurely</strong>. Chainscrape sells two alternatives, but only the Oseram Explorer is worth considering if you're committed to melee. Save your shards.
+<!-- ===== PHASE 2 ===== -->
+<div class="phase" id="p2">
+  <div class="phase-header" onclick="toggle('p2')">
+    <span class="arrow">▼</span>
+    <h2>Phase 2 — Into the Forbidden West (Post-Igniter)</h2>
+    <span class="lvl">Lv 7–17 · Rare Tier</span>
   </div>
   <div class="phase-body">
-
-    <div class="card-group">
-      <div class="card-group-title">Starting Outfit (Automatic)</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip uncommon">U</div>
-        <div class="armor-info">
-          <div class="armor-name">Nora Anointed <span class="armor-type-tag type-hunter">Hunter</span></div>
-          <div class="armor-desc">Aloy's default outfit. <strong>+1 Concentration Regen, +1 Potent Medicine</strong> (20% healing bonus). Acid +25 and Shock +25 resist — directly relevant against Bristlebacks. Upgrade once or twice; it carries through The Daunt comfortably.</div>
-          <div class="resist-row">
-            <span class="resist-pip resist-pos">Acid +25</span>
-            <span class="resist-pip resist-pos">Shock +25</span>
-          </div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-free">Auto</span>
-          <span class="tier-tag tier-a">A-TIER</span>
-        </div>
-      </div>
+    <div class="note-box">
+      Two essential purchases reshape your loadout. The <em>Nora Sentinel</em> at Barren Light is the first mandatory armor upgrade. The <em>Carja Shadow</em> at Plainsong is widely considered the <strong>best mid-game armor in the entire game</strong>. Plus the free <em>Utaru Whisperer</em> during "The Dying Lands."
     </div>
-
-    <div class="card-group">
-      <div class="card-group-title">Chainscrape Stitcher (~85 shards each)</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip uncommon">U</div>
-        <div class="armor-info">
-          <div class="armor-name">Nora Huntress <span class="armor-type-tag type-infiltrator">Infiltrator</span></div>
-          <div class="armor-desc">Low Profile + Silent Strike Heal for pure stealth. Near-zero elemental resistances — getting spotted is punishing. Decent if you ghost every encounter, but fragile.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-skip">Skip</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip uncommon">U</div>
-        <div class="armor-info">
-          <div class="armor-name">Oseram Explorer <span class="armor-type-tag type-warrior">Warrior</span></div>
-          <div class="armor-desc">Critical Strike+ and Power Attack+ with <strong>13 base melee resistance</strong> vs. the Anointed's 5. Genuinely better for spear combat. Zero elemental coverage — any fire/frost/shock machine shreds you.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-buy">Buy</span>
-          <span class="tier-tag tier-b">MELEE</span>
-        </div>
-      </div>
+    <div class="divider">Barren Light Stitcher</div>
+    <div class="weapon hunter"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Nora Sentinel <span class="wt">Hunter</span></div>
+      <div class="wd">~399 shards + Skydrifter Circulator. Resists Melee, Impact, Fire, and Frost simultaneously. <strong>+1 Concentration+, +1 Stamina Regen</strong>. Players report wearing it through 60–70% of the game. Only weak to Acid. <span class="tag mustbuy">Must-Buy</span> <span class="tag stier">S-Tier</span><br><span class="resist pos">Melee</span> <span class="resist pos">Impact</span> <span class="resist pos">Fire</span> <span class="resist pos">Frost</span> <span class="resist neg">Acid −</span></div>
+    </div></div>
+    <div class="divider">Plainsong Stitcher</div>
+    <div class="weapon survivor"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Carja Shadow <span class="wt">Survivor</span></div>
+      <div class="wd"><strong>Highest melee resistance of all Rare outfits</strong> — surpasses some Very Rares. +1 Low Health Defense, +1 Potent Medicine, eventually +2 Low Health Defense. Inverse names it their <strong>#1 mid-game pick</strong>. Easy to upgrade. <span class="tag mustbuy">Must-Buy</span> <span class="tag stier">S-Tier</span><br><span class="resist pos">Melee ★</span> <span class="resist pos">Impact</span> <span class="resist pos">Fire</span> <span class="resist pos">Purgewater</span> <span class="resist neg">Frost −</span></div>
+    </div></div>
+    <div class="weapon infiltrator"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Utaru Harvester <span class="wt">Infiltrator</span></div>
+      <div class="wd">~399 shards. Stealth with Acid resistance — rare among Infiltrator outfits. <span class="tag buy">Buy</span> <span class="tag btier">Niche</span></div>
+    </div></div>
+    <div class="divider">Free Pickups — Don't Miss These!</div>
+    <div class="weapon infiltrator"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Utaru Whisperer <span class="wt">Infiltrator</span></div>
+      <div class="wd">Chest during mandatory quest <strong>"The Dying Lands"</strong> near Repair Bay TAU. Best early stealth outfit: Silent Strike Gain, Silent Strike Heal. <strong>Healing on every stealth kill</strong> — extremely powerful for clearing camps. <span class="tag free">Free · Quest</span> <span class="tag atier">A-Tier</span><br><span class="resist pos">Fire</span> <span class="resist pos">Frost</span></div>
+    </div></div>
+    <div class="weapon trapper"><span class="tb t-g">U</span><div class="wi">
+      <div class="wn">Carja Blazon <span class="wt">Trapper</span></div>
+      <div class="wd">Free in chest at Rebel Camp: Eastern Lie, east of Plainsong. +1 Trap Limit. Only for dedicated Tripcaster users. <span class="tag free">Free · Chest</span> <span class="tag ctier">Niche</span></div>
+    </div></div>
+    <div class="divider">Scalding Spear Stitcher</div>
+    <div class="weapon warrior"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Oseram Wayfarer <span class="wt">Warrior</span></div>
+      <div class="wd">Melee specialist upgrade from the Explorer. Worth it if committed to spear combat. <span class="tag buy">Buy</span> <span class="tag btier">Melee</span></div>
+    </div></div>
+    <div class="weapon trapper"><span class="tb t-b">R</span><div class="wi">
+      <div class="wn">Carja Wanderer <span class="wt">Trapper</span></div>
+      <div class="wd">Trap Limit and deployment speed. Skip unless investing heavily in the Trapper tree. <span class="tag skip">Skip</span></div>
+    </div></div>
+    <div class="divider">First Very Rare Available</div>
+    <div class="weapon hunter"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Utaru Thresher <span class="wt">Hunter</span></div>
+      <div class="wd">~945 shards at Scalding Spear. First purple outfit. Heavy weapon bonuses and broad five-element resistance coverage. <span class="tag buy">Buy</span> <span class="tag atier">A-Tier</span></div>
+    </div></div>
+    <div class="note-box tip">
+      <strong>Recommended Phase 2 Loadout (3 outfits):</strong> <em>Nora Sentinel</em> for ranged combat. <em>Carja Shadow</em> for survival encounters. <em>Utaru Whisperer</em> for stealth. These three cover all needs through mid-game.
     </div>
-
-    <div class="card-group">
-      <div class="card-group-title">Free Pickup — Don't Miss</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip uncommon">U</div>
-        <div class="armor-info">
-          <div class="armor-name">Nora Champion <span class="armor-type-tag type-infiltrator">Infiltrator</span></div>
-          <div class="armor-desc">Reward for completing side quest <strong>"The Bristlebacks"</strong> in The Daunt. +1 Concentration+, +1 Stealth Ranged+. Free stealth-archer outfit. Grab it since it costs nothing; don't invest upgrade materials — outclassed quickly.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-free">Free · Quest</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="rec-box">
-      <strong>Recommended Phase 1 Loadout:</strong> Stick with the <em>Nora Anointed</em>. Upgrade it once or twice. If melee-focused, grab the <em>Oseram Explorer</em>. Pick up the <em>Nora Champion</em> for free — bank it as a situational stealth option but don't upgrade it.
-    </div>
-
   </div>
-</section>
+</div>
 
-<!-- ════════════════ PHASE 2 ════════════════ -->
-<div class="phase-connector">▼</div>
-
-<section class="phase">
-  <div class="phase-head">
-    <div class="phase-number">Phase 2</div>
-    <h2 class="phase-name">Into the Forbidden West (Post-Igniter)</h2>
-    <div class="phase-meta">Lv 7–17 · Rare Tier</div>
-  </div>
-  <div class="phase-intro">
-    Two essential purchases reshape your loadout. The <em>Nora Sentinel</em> at Barren Light is the first mandatory armor upgrade — broad resistances and Concentration skills. The <em>Carja Shadow</em> at Plainsong is widely considered the <strong>best mid-game armor in the entire game</strong>. Grab both, plus the free <em>Utaru Whisperer</em> during "The Dying Lands."
+<!-- ===== PHASE 3 ===== -->
+<div class="phase" id="p3">
+  <div class="phase-header" onclick="toggle('p3')">
+    <span class="arrow">▼</span>
+    <h2>Phase 3 — The Three Branches (Post-Diving Mask)</h2>
+    <span class="lvl">Lv 17–24 · Very Rare Tier</span>
   </div>
   <div class="phase-body">
-
-    <div class="card-group">
-      <div class="card-group-title">Barren Light Stitcher</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip rare">R</div>
-        <div class="armor-info">
-          <div class="armor-name">Nora Sentinel <span class="armor-type-tag type-hunter">Hunter</span></div>
-          <div class="armor-desc">~399 shards + Skydrifter Circulator. Resists Melee, Impact, Fire, and Frost simultaneously — massive upgrade from the Anointed's narrower coverage. <strong>+1 Concentration+, +1 Stamina Regen</strong> supports every ranged weapon. Only weak to Acid. Players report wearing it comfortably through 60–70% of the game.</div>
-          <div class="resist-row">
-            <span class="resist-pip resist-pos">Melee</span>
-            <span class="resist-pip resist-pos">Impact</span>
-            <span class="resist-pip resist-pos">Fire</span>
-            <span class="resist-pip resist-pos">Frost</span>
-            <span class="resist-pip resist-neg">Acid −</span>
-          </div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-mustbuy">Must-Buy</span>
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
+    <div class="note-box">
+      The <em>Tenakth Vindicator</em> changes everything. Earned free from "The Deluge," its Mixed Gear classification pulls skills from multiple trees — including <strong>Valor Surge Master</strong>. Game8 and Steam forums call it the best mid-game generalist.
     </div>
-
-    <div class="card-group">
-      <div class="card-group-title">Plainsong Stitcher</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip rare">R</div>
-        <div class="armor-info">
-          <div class="armor-name">Carja Shadow <span class="armor-type-tag type-survivor">Survivor</span></div>
-          <div class="armor-desc">~399 shards + Longleg Circulator. <strong>Highest melee resistance of all Rare outfits</strong> — even surpasses some Very Rares. Skills: +1 Low Health Defense, +1 Potent Medicine, eventually +1 Medicine Capacity and +2 Low Health Defense. Becomes dramatically harder to kill at low HP. Inverse names it their <strong>#1 mid-game pick</strong>. Considerably easier to upgrade than alternatives.</div>
-          <div class="resist-row">
-            <span class="resist-pip resist-pos">Melee ★</span>
-            <span class="resist-pip resist-pos">Impact</span>
-            <span class="resist-pip resist-pos">Fire</span>
-            <span class="resist-pip resist-pos">Purgewater</span>
-            <span class="resist-pip resist-neg">Frost −</span>
-          </div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-mustbuy">Must-Buy</span>
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip rare">R</div>
-        <div class="armor-info">
-          <div class="armor-name">Utaru Harvester <span class="armor-type-tag type-infiltrator">Infiltrator</span></div>
-          <div class="armor-desc">~399 shards. Stealth archer option with Acid resistance — rare among Infiltrator outfits. Good if you want stealth coverage against Acid machines. Otherwise, the free Utaru Whisperer below fills the stealth slot.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-buy">Buy</span>
-          <span class="tier-tag tier-b">NICHE</span>
-        </div>
-      </div>
+    <div class="divider">Free Quest Rewards — Don't Miss</div>
+    <div class="weapon mixedgear"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Tenakth Vindicator <span class="wt">Mixed Gear</span></div>
+      <div class="wd">Side quest <strong>"The Deluge"</strong> (after "The Eye of the Earth"). Weapon Stamina+, <strong>Valor Surge Master</strong>, Critical Strike+, Resilient Trapper. Valor Surge Master accelerates your Valor gauge dramatically. Patch Acid/Plasma weaknesses with weaves. <span class="tag free">Free · Quest</span> <span class="tag stier">S-Tier</span><br><span class="resist pos">Frost</span> <span class="resist pos">Shock</span> <span class="resist pos">Purgewater</span> <span class="resist neg">Acid −</span> <span class="resist neg">Plasma −</span></div>
+    </div></div>
+    <div class="weapon mixedgear"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Tenakth Marshal <span class="wt">Mixed Gear</span></div>
+      <div class="wd">Free in chest during main quest <strong>"The Kulrut."</strong> Heavy Weapon damage, Stealth Tear, Low Health survival. Unusually versatile for a free pickup. <span class="tag free">Free · Quest</span> <span class="tag atier">A-Tier</span></div>
+    </div></div>
+    <div class="divider">Thornmarsh Stitcher (~945 shards each + components)</div>
+    <div class="weapon infiltrator"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Utaru Hardweave <span class="wt">Infiltrator</span></div>
+      <div class="wd">Covers <strong>six elements</strong> with only Frost and Purgewater weaknesses. Excellent defensive breadth for stealth players. <span class="tag buy">Buy</span> <span class="tag atier">A-Tier</span></div>
+    </div></div>
+    <div class="weapon warrior"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Tenakth Reaver <span class="wt">Warrior</span></div>
+      <div class="wd">Glass-cannon melee. Key bonuses activate below 25% HP — high risk, high reward. <span class="tag buy">Buy</span> <span class="tag btier">High Risk</span></div>
+    </div></div>
+    <div class="weapon trapper"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Carja Stalker <span class="wt">Trapper</span></div>
+      <div class="wd">Best non-Legendary trapper outfit. Only for dedicated trap builds. <span class="tag buy">Buy</span> <span class="tag btier">Niche</span></div>
+    </div></div>
+    <div class="weapon machinemaster"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Tenakth Dragoon <span class="wt">Machine Master</span></div>
+      <div class="wd">Mount health and override bonuses. Skip if you don't regularly override machines. <span class="tag skip">Skip</span></div>
+    </div></div>
+    <div class="note-box tip">
+      <strong>Recommended Phase 3 Loadout:</strong> <em>Tenakth Vindicator</em> replaces the Nora Sentinel as primary all-rounder. Keep the <em>Carja Shadow</em> for survival. Keep the <em>Utaru Whisperer</em> for stealth (or upgrade to <em>Utaru Hardweave</em>). Start planning the legendary grind.
     </div>
-
-    <div class="card-group">
-      <div class="card-group-title">Free Pickups — Don't Miss These!</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip rare">R</div>
-        <div class="armor-info">
-          <div class="armor-name">Utaru Whisperer <span class="armor-type-tag type-infiltrator">Infiltrator</span></div>
-          <div class="armor-desc">Found in a chest during mandatory main quest <strong>"The Dying Lands"</strong> near Repair Bay TAU. Best early stealth outfit: Silent Strike Gain, Silent Strike Heal, decent Fire/Frost resistance. <strong>Healing on every stealth kill</strong> is extremely powerful for clearing human camps. Keep this through mid-game.</div>
-          <div class="resist-row">
-            <span class="resist-pip resist-pos">Fire</span>
-            <span class="resist-pip resist-pos">Frost</span>
-          </div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-free">Free · Quest</span>
-          <span class="tier-tag tier-a">A-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip uncommon">U</div>
-        <div class="armor-info">
-          <div class="armor-name">Carja Blazon <span class="armor-type-tag type-trapper">Trapper</span></div>
-          <div class="armor-desc">Free in a chest at Rebel Camp: Eastern Lie, east of Plainsong. +1 Trap Limit and Quick Trapper weave. Niche — only grab if you specifically enjoy Tripcaster play.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-free">Free · Chest</span>
-          <span class="tier-tag tier-c">NICHE</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card-group">
-      <div class="card-group-title">Scalding Spear Stitcher</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip rare">R</div>
-        <div class="armor-info">
-          <div class="armor-name">Oseram Wayfarer <span class="armor-type-tag type-warrior">Warrior</span></div>
-          <div class="armor-desc">Melee specialist upgrade from the Oseram Explorer. Worth it if you're committed to spear combat; otherwise the Carja Shadow's melee resistance does the job defensively.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-buy">Buy</span>
-          <span class="tier-tag tier-b">MELEE</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip rare">R</div>
-        <div class="armor-info">
-          <div class="armor-name">Carja Wanderer <span class="armor-type-tag type-trapper">Trapper</span></div>
-          <div class="armor-desc">For dedicated Tripcaster builds. Trap Limit and deployment speed bonuses. Skip unless you're investing heavily in the Trapper skill tree.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-skip">Skip</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card-group">
-      <div class="card-group-title">First Very Rare Available</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip veryrare">VR</div>
-        <div class="armor-info">
-          <div class="armor-name">Utaru Thresher <span class="armor-type-tag type-hunter">Hunter</span></div>
-          <div class="armor-desc">~945 shards at Scalding Spear. First purple outfit you can buy. Heavy weapon bonuses and broad five-element resistance coverage. Worthwhile investment for players who enjoy ripping cannons off machines.</div>
-          <div class="resist-row">
-            <span class="resist-pip resist-pos">5-element coverage</span>
-          </div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-buy">Buy</span>
-          <span class="tier-tag tier-a">A-TIER</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="rec-box">
-      <strong>Recommended Phase 2 Loadout (3 outfits):</strong> <em>Nora Sentinel</em> for general ranged combat. <em>Carja Shadow</em> for tough survival encounters. <em>Utaru Whisperer</em> for stealth. These three cover ranged, survival, and stealth needs through mid-game.
-    </div>
-
   </div>
-</section>
+</div>
 
-<!-- ════════════════ PHASE 3 ════════════════ -->
-<div class="phase-connector">▼</div>
-
-<section class="phase">
-  <div class="phase-head">
-    <div class="phase-number">Phase 3</div>
-    <h2 class="phase-name">The Three Branches (Post-Diving Mask)</h2>
-    <div class="phase-meta">Lv 17–24 · Very Rare Tier</div>
-  </div>
-  <div class="phase-intro">
-    The <em>Tenakth Vindicator</em> changes everything. Earned free from the side quest "The Deluge," its Mixed Gear classification pulls skills from multiple trees — including the critical <strong>Valor Surge Master</strong>. Game8 and Steam community members call it the best mid-game generalist. Thornmarsh opens as a major armor hub.
+<!-- ===== PHASE 4 ===== -->
+<div class="phase" id="p4">
+  <div class="phase-header" onclick="toggle('p4')">
+    <span class="arrow">▼</span>
+    <h2>Phase 4 — The Legendary Grind (Post-Vine Cutter)</h2>
+    <span class="lvl">Lv 24–30 · Legendary Tier</span>
   </div>
   <div class="phase-body">
-
-    <div class="card-group">
-      <div class="card-group-title">Free Quest Reward — Don't Miss</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip veryrare">VR</div>
-        <div class="armor-info">
-          <div class="armor-name">Tenakth Vindicator <span class="armor-type-tag type-mixedgear">Mixed Gear</span></div>
-          <div class="armor-desc">Side quest <strong>"The Deluge"</strong> (available after "The Eye of the Earth"). Weapon Stamina+, <strong>Valor Surge Master</strong>, Critical Strike+, Resilient Trapper. Valor Surge Master accelerates your Valor gauge — deploy Overshield, Ranged Master, Powershots far more frequently. Weaknesses to Acid and Plasma addressed with weaves.</div>
-          <div class="resist-row">
-            <span class="resist-pip resist-pos">Frost</span>
-            <span class="resist-pip resist-pos">Shock</span>
-            <span class="resist-pip resist-pos">Purgewater</span>
-            <span class="resist-pip resist-neg">Acid −</span>
-            <span class="resist-pip resist-neg">Plasma −</span>
-          </div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-free">Free · Quest</span>
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip veryrare">VR</div>
-        <div class="armor-info">
-          <div class="armor-name">Tenakth Marshal <span class="armor-type-tag type-mixedgear">Mixed Gear</span></div>
-          <div class="armor-desc">Found free in a chest during main quest <strong>"The Kulrut."</strong> Four skills spanning Heavy Weapon damage, Stealth Tear, and Low Health survival mechanics. Unusually versatile for a free pickup.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-free">Free · Quest</span>
-          <span class="tier-tag tier-a">A-TIER</span>
-        </div>
-      </div>
+    <div class="note-box">
+      Three doors open: <strong>The Arena</strong> (after "The Kulrut" + "Opening the Arena"), <strong>Salvage Contracts</strong> reaching completion, and <strong>Thornmarsh Legendary catalog</strong>. The <em>Nora Thunder Warrior</em> is community consensus <strong>#1 armor</strong>.
     </div>
-
-    <div class="card-group">
-      <div class="card-group-title">Thornmarsh Stitcher (~945 shards each + components)</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip veryrare">VR</div>
-        <div class="armor-info">
-          <div class="armor-name">Utaru Hardweave <span class="armor-type-tag type-infiltrator">Infiltrator</span></div>
-          <div class="armor-desc">Covers an impressive <strong>six elements</strong> with only Frost and Purgewater as weaknesses. Excellent defensive breadth for cautious stealth players upgrading from the Utaru Whisperer.</div>
-          <div class="resist-row">
-            <span class="resist-pip resist-pos">6-element coverage</span>
-            <span class="resist-pip resist-neg">Frost −</span>
-            <span class="resist-pip resist-neg">Purge −</span>
-          </div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-buy">Buy</span>
-          <span class="tier-tag tier-a">A-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip veryrare">VR</div>
-        <div class="armor-info">
-          <div class="armor-name">Tenakth Reaver <span class="armor-type-tag type-warrior">Warrior</span></div>
-          <div class="armor-desc">Glass-cannon melee outfit. Key bonuses activate below 25% HP — high risk, high reward. Strong in skilled hands but punishing for mistakes.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-buy">Buy</span>
-          <span class="tier-tag tier-b">HIGH RISK</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip veryrare">VR</div>
-        <div class="armor-info">
-          <div class="armor-name">Carja Stalker <span class="armor-type-tag type-trapper">Trapper</span></div>
-          <div class="armor-desc">Best non-Legendary trapper outfit. Worth it only for dedicated trap builds.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-buy">Buy</span>
-          <span class="tier-tag tier-b">NICHE</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip veryrare">VR</div>
-        <div class="armor-info">
-          <div class="armor-name">Tenakth Dragoon <span class="armor-type-tag type-machinemaster">Machine Master</span></div>
-          <div class="armor-desc">Enhanced mount health and override bonuses. Fun for mounted combat enthusiasts. Skip if you don't regularly override machines.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-skip">Skip</span>
-        </div>
-      </div>
+    <div class="divider">Arena Legendaries (54 Arena Medals each)</div>
+    <div class="weapon hunter"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Nora Thunder Warrior <span class="wt">Hunter</span></div>
+      <div class="wd"><strong>Community consensus #1 armor.</strong> +2 Concentration+, +1 Concentration Regen, +1 Deep Concentration, +1 Stamina Regen. Level 3 unlocks +2 Valor Surge Master and +2 Weapon Stamina+ bonus weaves. ~147 total resistance. HFW is a ranged game — nothing else extends your slow-motion aiming as dramatically. ScreenRant ranks it #1 even post-DLC. <span class="tag arena">54 Medals</span> <span class="tag stier">S-Tier</span><br><span class="resist pos">Melee</span> <span class="resist pos">Impact</span> <span class="resist pos">Fire</span> <span class="resist pos">Shock</span> <span class="resist pos">Acid</span> <span class="resist pos">Purge</span> <span class="resist neg">Frost −</span> <span class="resist neg">Plasma −</span></div>
+    </div></div>
+    <div class="weapon survivor"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Tenakth Vanquisher <span class="wt">Survivor</span></div>
+      <div class="wd">Berserker outfit — all bonuses activate below 25% HP. On Ultra Hard, staying near death is suicidal. <strong>Community "noob trap" warning.</strong> <span class="tag arena">54 Medals</span> <span class="tag ctier">Trap</span></div>
+    </div></div>
+    <div class="weapon trapper"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Carja Stalker Elite <span class="wt">Trapper</span></div>
+      <div class="wd">Max trap speed and limit. Contributes nothing during fights — traps are pre-engagement tools. Disappointing for the cost. <span class="tag arena">54 Medals</span> <span class="tag ctier">Niche</span></div>
+    </div></div>
+    <div class="divider">Salvage Contract Chain (17 contracts, 4 salvagers)</div>
+    <div class="weapon warrior"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Oseram Artificer <span class="wt">Warrior</span></div>
+      <div class="wd">Complete all <strong>17 Salvage Contracts</strong> → quest "Keruf's Salvage Unlimited." Longest grind for any armor. <strong>Highest overall defense stats of any outfit</strong> (51 Melee, 35 Impact, 33 Fire, 33 Shock, 35 Purge, 36 Acid). +2 Power Attack+, Resonator Buildup/Damage, Valor Surge Master. Level 3 bonus weaves: +2 Melee Damage, +2 Critical Strike+. With Overshield = closest thing to Shield-Weaver. <span class="tag activity">17 Contracts</span> <span class="tag stier">S-Tier</span><br><span class="resist pos">Melee ★★</span> <span class="resist pos">Impact</span> <span class="resist pos">Fire</span> <span class="resist pos">Shock</span> <span class="resist pos">Purge</span> <span class="resist pos">Acid</span></div>
+    </div></div>
+    <div class="divider">Thornmarsh Legendary (2,000 shards + rare components)</div>
+    <div class="weapon infiltrator"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Utaru Winterweave <span class="wt">Infiltrator</span></div>
+      <div class="wd">2,000 shards + Tremortusk Circulator + Apex Dreadwing Heart. <strong>Definitive stealth armor.</strong> +2 Quiet Movement, Low Profile, Quiet Spear, Smoke Bomb Capacity. Silent Strike Heal at level 4 grants <strong>85% overhealth</strong>. Plasma resistance covers the Thunder Warrior's weakness — natural companion outfits. <span class="tag buy">2K Shards</span> <span class="tag stier">S-Tier</span><br><span class="resist pos">Plasma ★</span> <span class="resist pos">Fire</span> <span class="resist pos">Frost</span></div>
+    </div></div>
+    <div class="weapon machinemaster"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Tenakth Tactician <span class="wt">Machine Master</span></div>
+      <div class="wd">2,000 shards. Override duration and mount stats. Fantastic for its niche, worthless otherwise. <span class="tag buy">2K Shards</span> <span class="tag ctier">Niche</span></div>
+    </div></div>
+    <div class="note-box tip">
+      <strong>Recommended Phase 4 Priority:</strong> Grind Arena medals for the <em>Nora Thunder Warrior</em> first. Simultaneously complete Salvage Contracts for the <em>Oseram Artificer</em>. Buy the <em>Utaru Winterweave</em> once you've farmed an Apex Dreadwing Heart. These three form the endgame core.
     </div>
-
-    <div class="rec-box">
-      <strong>Recommended Phase 3 Loadout (3 outfits):</strong> <em>Tenakth Vindicator</em> replaces the Nora Sentinel as primary all-rounder. Keep the <em>Carja Shadow</em> for tough survival encounters. Keep the <em>Utaru Whisperer</em> for stealth (or upgrade to <em>Utaru Hardweave</em> for broader elemental coverage). Start planning the legendary grind.
-    </div>
-
   </div>
-</section>
+</div>
 
-<!-- ════════════════ PHASE 4 ════════════════ -->
-<div class="phase-connector">▼</div>
-
-<section class="phase">
-  <div class="phase-head">
-    <div class="phase-number">Phase 4</div>
-    <h2 class="phase-name">The Legendary Grind (Post-Vine Cutter)</h2>
-    <div class="phase-meta">Lv 24–30 · Legendary Tier</div>
-  </div>
-  <div class="phase-intro">
-    Three doors open simultaneously: <strong>The Arena</strong> (after "The Kulrut" + "Opening the Arena"), <strong>Salvage Contracts</strong> reaching completion, and <strong>Thornmarsh's Legendary catalog</strong>. The <em>Nora Thunder Warrior</em> is the community consensus <strong>#1 armor</strong>. The <em>Oseram Artificer</em> is the highest-defense outfit in the game.
+<!-- ===== PHASE 5 ===== -->
+<div class="phase" id="p5">
+  <div class="phase-header" onclick="toggle('p5')">
+    <span class="arrow">▼</span>
+    <h2>Phase 5 — Sunwing &amp; Endgame</h2>
+    <span class="lvl">Lv 30–50 · Final Legendaries + DLC</span>
   </div>
   <div class="phase-body">
-
-    <div class="card-group">
-      <div class="card-group-title">Arena Legendaries (54 Arena Medals each)</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary">L</div>
-        <div class="armor-info">
-          <div class="armor-name">Nora Thunder Warrior <span class="armor-type-tag type-hunter">Hunter</span></div>
-          <div class="armor-desc"><strong>Community consensus #1 armor.</strong> +2 Concentration+, +1 Concentration Regen, +1 Deep Concentration, +1 Stamina Regen. Stealth Ranged+ and Heavy Weapon+ unlock via upgrades. Level 3 gains +2 Weapon Stamina+ and +2 Valor Surge Master bonus weaves. ~147 total resistance. HFW's combat is primarily ranged — nothing else extends your slow-motion aiming window as dramatically. ScreenRant ranks it #1 even post-DLC.</div>
-          <div class="resist-row">
-            <span class="resist-pip resist-pos">Melee</span>
-            <span class="resist-pip resist-pos">Impact</span>
-            <span class="resist-pip resist-pos">Fire</span>
-            <span class="resist-pip resist-pos">Shock</span>
-            <span class="resist-pip resist-pos">Acid</span>
-            <span class="resist-pip resist-pos">Purgewater</span>
-            <span class="resist-pip resist-neg">Frost −</span>
-            <span class="resist-pip resist-neg">Plasma −</span>
-          </div>
-          <div class="armor-skills">Skills: <span>Concentration+ ·  Concentration Regen · Deep Concentration · Stamina Regen · Stealth Ranged+ · Heavy Weapon+</span></div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-arena">54 Medals</span>
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary">L</div>
-        <div class="armor-info">
-          <div class="armor-name">Tenakth Vanquisher <span class="armor-type-tag type-survivor">Survivor</span></div>
-          <div class="armor-desc">Berserker outfit where all key bonuses activate below 25% HP. Powerful in skilled hands — most players find this risk-reward profile uncomfortable. On Ultra Hard, deliberately staying near death is suicidal. <strong>Community "noob trap" warning.</strong></div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-arena">54 Medals</span>
-          <span class="tier-tag tier-c">TRAP</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary">L</div>
-        <div class="armor-info">
-          <div class="armor-name">Carja Stalker Elite <span class="armor-type-tag type-trapper">Trapper</span></div>
-          <div class="armor-desc">Maximizes trap deployment speed and trap limit. Contributes nothing during the fight itself — traps are pre-engagement tools. Disappointing for the medal cost.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-arena">54 Medals</span>
-          <span class="tier-tag tier-c">NICHE</span>
-        </div>
-      </div>
+    <div class="note-box">
+      Sunwing mounts make Apex farming easier. Your endgame core: <strong>Nora Thunder Warrior</strong> (ranged), <strong>Oseram Artificer</strong> (melee/tank), <strong>Utaru Winterweave</strong> (stealth). The Regalla choice and Burning Shores DLC add the final pieces.
     </div>
-
-    <div class="card-group">
-      <div class="card-group-title">Salvage Contract Chain (17 contracts across 4 salvagers)</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary">L</div>
-        <div class="armor-info">
-          <div class="armor-name">Oseram Artificer <span class="armor-type-tag type-warrior">Warrior</span></div>
-          <div class="armor-desc">Complete all <strong>17 Salvage Contracts</strong> (Larend, Runda, Handa, Danur) → quest "Keruf's Salvage Unlimited." Longest grind for any armor. <strong>Highest overall defense stats of any outfit</strong> (51 Melee, 35 Impact, 33 Fire, 33 Shock, 35 Purgewater, 36 Acid fully upgraded). Skills: +2 Power Attack+, Resonator Buildup/Damage, Valor Surge Master. Level 3 bonus weaves: +2 Melee Damage, +2 Critical Strike+. Paired with Overshield Valor Surge = closest thing to Shield-Weaver in HFW.</div>
-          <div class="resist-row">
-            <span class="resist-pip resist-pos">Melee ★★</span>
-            <span class="resist-pip resist-pos">Impact</span>
-            <span class="resist-pip resist-pos">Fire</span>
-            <span class="resist-pip resist-pos">Shock</span>
-            <span class="resist-pip resist-pos">Purgewater</span>
-            <span class="resist-pip resist-pos">Acid</span>
-          </div>
-          <div class="armor-skills">Skills: <span>Power Attack+ · Resonator Buildup · Resonator Damage · Valor Surge Master · Melee Damage · Critical Strike+</span></div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-salvage">17 Contracts</span>
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
+    <div class="divider">The Regalla Choice — "The Wings of the Ten"</div>
+    <div class="note-box warn">
+      <strong>⚠ Mutually exclusive.</strong> Kill Regalla → get Regalla's Wrath bow. Spare Regalla → get Tenakth High Marshal armor. You cannot obtain both in one playthrough.
     </div>
-
-    <div class="card-group">
-      <div class="card-group-title">Thornmarsh Legendary (2,000 shards + rare components)</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary">L</div>
-        <div class="armor-info">
-          <div class="armor-name">Utaru Winterweave <span class="armor-type-tag type-infiltrator">Infiltrator</span></div>
-          <div class="armor-desc">2,000 shards + Tremortusk Circulator + Apex Dreadwing Heart. The <strong>definitive stealth armor</strong>. +2 Quiet Movement, Low Profile, Quiet Spear, Smoke Bomb Capacity; Silent Strike+ and Silent Strike Heal unlock via upgrades. Silent Strike Heal at level 4 grants <strong>85% overhealth</strong> — stealth kills massively overheal you. Extra Smoke Bombs enable hit-and-vanish loops. <strong>Plasma resistance</strong> covers the exact weakness of the Nora Thunder Warrior — natural companion outfits.</div>
-          <div class="resist-row">
-            <span class="resist-pip resist-pos">Plasma ★</span>
-            <span class="resist-pip resist-pos">Fire</span>
-            <span class="resist-pip resist-pos">Frost</span>
-          </div>
-          <div class="armor-skills">Skills: <span>Quiet Movement · Low Profile · Quiet Spear · Smoke Bomb Capacity · Silent Strike+ · Silent Strike Heal</span></div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-buy">2K Shards</span>
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary">L</div>
-        <div class="armor-info">
-          <div class="armor-name">Tenakth Tactician <span class="armor-type-tag type-machinemaster">Machine Master</span></div>
-          <div class="armor-desc">2,000 shards. Extends override duration and boosts mount stats. Fantastic for its niche, worthless if you don't regularly override machines.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-buy">2K Shards</span>
-          <span class="tier-tag tier-c">NICHE</span>
-        </div>
-      </div>
+    <div class="weapon mixedgear"><span class="tb t-p">VR</span><div class="wi">
+      <div class="wn">Tenakth High Marshal <span class="wt">Mixed Gear</span></div>
+      <div class="wd">Spare Regalla → get this. Resonator Blast+, Melee Damage, Mounted Archer. Frost +56 but <strong>Fire −4 and Purgewater −5 even at max</strong>. Niche — most won't use over Legendaries. <strong>Better narrative choice</strong> — Regalla fights alongside you in the finale. <span class="tag free">Spare Regalla</span> <span class="tag btier">Exclusive</span><br><span class="resist pos">Frost +56</span> <span class="resist neg">Fire −4</span> <span class="resist neg">Purge −5</span></div>
+    </div></div>
+    <div class="combo-box">
+      <strong>Community consensus:</strong> Kill Regalla for the bow on gameplay grounds — but Forgefall (Arena) outclasses it anyway. Spare Regalla for the better story. Neither reward is game-defining.
     </div>
-
-    <div class="rec-box">
-      <strong>Recommended Phase 4 Priority:</strong> Grind Arena medals for the <em>Nora Thunder Warrior</em> first (challenges work on any difficulty). Simultaneously complete remaining Salvage Contracts for the <em>Oseram Artificer</em>. Purchase the <em>Utaru Winterweave</em> at Thornmarsh once you've farmed an Apex Dreadwing Heart. These three form the endgame core.
+    <div class="divider">Burning Shores DLC — Fleet's End (2K shards + 8 Brimshine)</div>
+    <div class="weapon infiltrator"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Quen Marine <span class="wt">Infiltrator</span></div>
+      <div class="wd">Matches Thunder Warrior's 147 total resistance. <strong>+2 Concentration+, Deep Concentration, Concentration Regen, Stamina Regen.</strong> Trades Heavy Weapon+ for Valor Surge Master. Community debate: sidegrade — <strong>either is S-tier</strong>. <span class="tag buy">2K + Brimshine</span> <span class="tag stier">S-Tier</span></div>
+    </div></div>
+    <div class="weapon infiltrator"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Quen Deadeye <span class="wt">Infiltrator</span></div>
+      <div class="wd">Quest reward from <strong>"The Splinter Within."</strong> Stealth archery vs Winterweave's stealth melee. Stealth Ranged+ and Concentration+ for devastating opening shots. Plasma resistance for Slaughterspines. <span class="tag free">Free · Quest</span> <span class="tag stier">S-Tier</span><br><span class="resist pos">Plasma ★</span></div>
+    </div></div>
+    <div class="weapon warrior"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Quen Commander <span class="wt">Warrior</span></div>
+      <div class="wd">Resonator Strike specialist: +2 Energized Duration, Resonator Buildup/Blast+/Damage. ~130 total resistance — Artificer wins on combined offense + survivability. <span class="tag buy">2K + Brimshine</span> <span class="tag atier">A-Tier</span></div>
+    </div></div>
+    <div class="weapon survivor"><span class="tb t-l">L</span><div class="wi">
+      <div class="wn">Nora Lookout <span class="wt">Survivor</span></div>
+      <div class="wd">Healing and Second Chance procs. Benefits only activate when you're already losing. ScreenRant calls it the <strong>worst Legendary armor in HFW</strong>. <span class="tag skip">Skip</span> <span class="tag ctier">Worst</span></div>
+    </div></div>
+    <div class="note-box tip">
+      <strong>Final Endgame Loadout (3–4 outfits, swap by encounter):</strong> <em>Nora Thunder Warrior</em> — default ranged. <em>Oseram Artificer</em> — melee + highest defense. <em>Utaru Winterweave</em> or <em>Quen Deadeye</em> — stealth + Plasma. <em>Quen Marine</em> (DLC) — alternative ranged if you value Valor Surge uptime.
     </div>
-
   </div>
-</section>
+</div>
 
-<!-- ════════════════ PHASE 5 ════════════════ -->
-<div class="phase-connector">▼</div>
-
-<section class="phase">
-  <div class="phase-head">
-    <div class="phase-number">Phase 5</div>
-    <h2 class="phase-name">Sunwing &amp; Endgame</h2>
-    <div class="phase-meta">Lv 30–50 · Final Legendaries + Burning Shores DLC</div>
-  </div>
-  <div class="phase-intro">
-    Sunwing mounts make farming Apex machine parts dramatically easier. Your core trio should be established: <strong>Nora Thunder Warrior</strong> (ranged), <strong>Oseram Artificer</strong> (melee/tank), <strong>Utaru Winterweave</strong> (stealth). The Regalla choice and Burning Shores DLC add the final pieces.
+<!-- ===== WEAVE GUIDE ===== -->
+<div class="phase" id="p-weave">
+  <div class="phase-header" onclick="toggle('p-weave')">
+    <span class="arrow">▼</span>
+    <h2>Weave System &amp; Optimization</h2>
+    <span class="lvl">Reference</span>
   </div>
   <div class="phase-body">
-
-    <div class="card-group">
-      <div class="card-group-title">The Regalla Choice — "The Wings of the Ten"</div>
-
-      <div class="warn-box" style="margin: 4px 0 12px">
-        <strong>⚠ Mutually exclusive.</strong> After defeating Regalla, a Flashpoint lets you kill her (get Regalla's Wrath bow) or spare her (get Tenakth High Marshal armor). You cannot obtain both in one playthrough.
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip veryrare">VR</div>
-        <div class="armor-info">
-          <div class="armor-name">Tenakth High Marshal <span class="armor-type-tag type-mixedgear">Mixed Gear</span></div>
-          <div class="armor-desc">Spare Regalla → get this outfit. Resonator Blast+, Melee Damage, and Mounted Archer skills. Strong Frost resistance (+56 upgraded) but <strong>crippling Fire (−4) and Purgewater (−5) weaknesses</strong> even at max. Niche melee/mounted hybrid that most players won't use over Legendary options by endgame. <strong>Better narrative choice</strong> — Regalla fights alongside you in the finale.</div>
-          <div class="resist-row">
-            <span class="resist-pip resist-pos">Frost +56</span>
-            <span class="resist-pip resist-neg">Fire −4</span>
-            <span class="resist-pip resist-neg">Purge −5</span>
-          </div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-quest">Spare Regalla</span>
-          <span class="tier-tag tier-b">EXCLUSIVE</span>
-        </div>
-      </div>
-
-      <div class="info-box">
-        <strong>Community consensus:</strong> Kill Regalla for the bow on gameplay grounds — but Forgefall (Arena) outclasses it anyway. Spare Regalla for the better story moment. Neither reward is game-defining. Choose narrative preference.
-      </div>
+    <div class="note-box upgrade">
+      <strong>Weaves are fully swappable and never consumed</strong> — remove one, slot another, no penalty. Two types: <strong>resistance weaves</strong> (up to 33% elemental defense) and <strong>skill weaves</strong> (+1 or +2 to abilities). All outfits max at <strong>2 weave slots</strong>. Unique +2 skill weaves unlock from upgrading Legendaries to level 3.
     </div>
-
-    <div class="card-group">
-      <div class="card-group-title">Burning Shores DLC — Fleet's End (2,000 shards + 8 Brimshine each)</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary">L</div>
-        <div class="armor-info">
-          <div class="armor-name">Quen Marine <span class="armor-type-tag type-infiltrator">Infiltrator</span></div>
-          <div class="armor-desc">Matches the Thunder Warrior's 147 total resistance and nearly identical skill profile: <strong>+2 Concentration+, +1 Deep Concentration, +1 Concentration Regen, +1 Stamina Regen</strong>. Trades Heavy Weapon+ for <strong>Valor Surge Master and Drop Shield Capacity</strong>. Community debate: players who rely on Valor Surges consider it a strict upgrade; heavy weapon fans prefer Thunder Warrior. <strong>Sidegrade — either is S-tier.</strong></div>
-          <div class="resist-row">
-            <span class="resist-pip resist-pos">~147 total</span>
-          </div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-buy">2K + Brimshine</span>
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary">L</div>
-        <div class="armor-info">
-          <div class="armor-name">Quen Deadeye <span class="armor-type-tag type-infiltrator">Infiltrator</span></div>
-          <div class="armor-desc">Quest reward from <strong>"The Splinter Within."</strong> Fills a gap Winterweave leaves: stealth archery vs stealth melee. Boosts <strong>Stealth Ranged+ and Concentration+</strong> for devastating opening bow shots. Plasma resistance for Slaughterspine and Sunwing hunts. ONE Esports argues it plays better with HFW's combat than Winterweave.</div>
-          <div class="resist-row">
-            <span class="resist-pip resist-pos">Plasma ★</span>
-          </div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-free">Free · Quest</span>
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary">L</div>
-        <div class="armor-info">
-          <div class="armor-name">Quen Commander <span class="armor-type-tag type-warrior">Warrior</span></div>
-          <div class="armor-desc">2,000 shards + Brimshine. Resonator Strike specialist: +2 Energized Duration, Resonator Buildup, Blast+, Damage. <strong>~130 total resistance</strong> — falls short of the Artificer's class-leading defenses. Artificer wins on combined offense + survivability.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-buy">2K + Brimshine</span>
-          <span class="tier-tag tier-a">A-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary">L</div>
-        <div class="armor-info">
-          <div class="armor-name">Nora Lookout <span class="armor-type-tag type-survivor">Survivor</span></div>
-          <div class="armor-desc">Focuses on healing and Second Chance procs. Benefits only activate when you're already losing. ScreenRant calls it the <strong>worst Legendary armor in HFW</strong>.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="action-tag action-skip">Skip</span>
-          <span class="tier-tag tier-c">WORST</span>
-        </div>
-      </div>
+    <div class="divider">Best Weaves (Priority Order)</div>
+    <div class="weapon general"><span class="tb t-i">①</span><div class="wi">
+      <div class="wn">+2 Valor Surge Master <span class="wt">Skill Weave</span></div>
+      <div class="wd">Doubles valor gain — near-permanent Valor Surge uptime. <strong>Most impactful weave in the game.</strong></div>
+    </div></div>
+    <div class="weapon general"><span class="tb t-i">②</span><div class="wi">
+      <div class="wn">+2 Concentration+ <span class="wt">Skill Weave</span></div>
+      <div class="wd">Essential for ranged builds. Pairs with Thunder Warrior's Concentration skills to hit the cap without spending skill points.</div>
+    </div></div>
+    <div class="weapon general"><span class="tb t-i">③</span><div class="wi">
+      <div class="wn">Elemental Resistance Weaves <span class="wt">Defense Weave</span></div>
+      <div class="wd">Patch your armor's weakness. Example: <strong>Plasma Defence into Thunder Warrior</strong> to cover its only meaningful gap. Swap per encounter.</div>
+    </div></div>
+    <div class="weapon general"><span class="tb t-i">④</span><div class="wi">
+      <div class="wn">+2 Melee Damage / +2 Critical Strike+ <span class="wt">Skill Weave</span></div>
+      <div class="wd">Bonus weaves from Oseram Artificer level 3. Massive melee DPS boost. Transferable to any outfit.</div>
+    </div></div>
+    <div class="combo-box">
+      <strong>Key rule:</strong> Skills cap at level 4 — skill tree provides up to 2, gear + weaves provide the remaining +2. A Legendary armor with +2 to a skill can max it out without spending a single skill point. Plan your skill tree around your armor's built-in bonuses.
     </div>
-
-    <div class="rec-box">
-      <strong>Final Endgame Loadout (3–4 outfits, swap by encounter):</strong><br>
-      <em>Nora Thunder Warrior</em> — default for all ranged combat<br>
-      <em>Oseram Artificer</em> — melee-intensive fights + highest defense<br>
-      <em>Utaru Winterweave</em> or <em>Quen Deadeye</em> — stealth + Plasma encounters<br>
-      <em>Quen Marine</em> (DLC) — alternative ranged if you value Valor Surge uptime over heavy weapons
-    </div>
-
   </div>
-</section>
+</div>
 
-<!-- ════════════════ WEAVE GUIDE ════════════════ -->
-<div class="phase-connector">▼</div>
-
-<section class="phase">
-  <div class="phase-head">
-    <div class="phase-number">Reference</div>
-    <h2 class="phase-name">Weave System &amp; Optimization</h2>
-    <div class="phase-meta">How outfit modifications work</div>
+<!-- ===== TIER LIST ===== -->
+<div class="phase" id="p-tiers">
+  <div class="phase-header" onclick="toggle('p-tiers')">
+    <span class="arrow">▼</span>
+    <h2>Community Armor Tier List</h2>
+    <span class="lvl">Reference</span>
   </div>
   <div class="phase-body">
-    <div class="phase-intro" style="padding: 0 12px;">
-      Weaves are <strong>fully swappable and never consumed</strong> — remove one, slot another, no penalty. They come in two types: <strong>resistance weaves</strong> (flat elemental/physical defense, up to 33% for primary elements) and <strong>skill weaves</strong> (+1 or +2 to specific abilities). All outfits max at <strong>2 weave slots</strong>. Unique +2 skill weaves are unlocked by upgrading Legendary armors to level 3.
+    <div class="note-box">
+      On Ultra Hard, elemental matching is critical — wearing −24 Fire resist against a Scorcher is a death sentence. Maintain <strong>3–4 outfits</strong> and swap by encounter. Rankings from Reddit, Steam, ScreenRant, GameRant, and community consensus.
     </div>
-
-    <div class="card-group" style="margin-top: 20px;">
-      <div class="card-group-title">Best Weaves (Priority Order)</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary" style="font-size:18px;">①</div>
-        <div class="armor-info">
-          <div class="armor-name">+2 Valor Surge Master</div>
-          <div class="armor-desc">Doubles valor gain, enabling near-permanent Valor Surge uptime. Unlocked from upgrading specific Legendary outfits. <strong>The single most impactful weave in the game.</strong></div>
-        </div>
-        <div class="armor-actions">
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary" style="font-size:18px;">②</div>
-        <div class="armor-info">
-          <div class="armor-name">+2 Concentration+</div>
-          <div class="armor-desc">Essential for ranged builds. Extends slow-motion aiming dramatically. Pairs with the Nora Thunder Warrior's existing Concentration skills to hit the cap without spending skill points.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary" style="font-size:18px;">③</div>
-        <div class="armor-info">
-          <div class="armor-name">Elemental Resistance Weaves</div>
-          <div class="armor-desc">Patch your armor's specific weakness. Example: slot <strong>Plasma Defence into the Nora Thunder Warrior</strong> to cover its only meaningful gap. Stack the resistance your current encounter demands.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="tier-tag tier-a">A-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary" style="font-size:18px;">④</div>
-        <div class="armor-info">
-          <div class="armor-name">+2 Melee Damage / +2 Critical Strike+</div>
-          <div class="armor-desc">Bonus weaves from Oseram Artificer level 3 upgrade. Massive melee DPS boost. Move them to any outfit for a melee-focused build.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="tier-tag tier-a">A-TIER</span>
-        </div>
-      </div>
+    <div class="weapon hunter"><span class="tb t-s">S</span><div class="wi">
+      <div class="wn">Nora Thunder Warrior <span class="wt">S-Tier</span></div>
+      <div class="wd"><strong>Best all-rounder.</strong> HFW is a ranged game — nothing else extends Concentration as much. Default for every non-stealth, non-melee encounter.</div>
+    </div></div>
+    <div class="weapon warrior"><span class="tb t-s">S</span><div class="wi">
+      <div class="wn">Oseram Artificer <span class="wt">S-Tier</span></div>
+      <div class="wd"><strong>Highest defense + best melee.</strong> With Overshield Valor Surge = closest to Shield-Weaver. Mandatory for melee builds.</div>
+    </div></div>
+    <div class="weapon infiltrator"><span class="tb t-s">S</span><div class="wi">
+      <div class="wn">Utaru Winterweave <span class="wt">S-Tier</span></div>
+      <div class="wd"><strong>Definitive stealth armor.</strong> 85% overhealth on Silent Strike kills. Plasma resistance covers Thunder Warrior's weakness.</div>
+    </div></div>
+    <div class="weapon infiltrator"><span class="tb t-s">S</span><div class="wi">
+      <div class="wn">Quen Marine <span class="wt">S-Tier · DLC</span></div>
+      <div class="wd"><strong>Thunder Warrior sidegrade.</strong> Trades Heavy Weapon+ for Valor Surge Master. Equal power, different emphasis.</div>
+    </div></div>
+    <div class="weapon infiltrator"><span class="tb" style="background:var(--atier);font-size:11px;">A</span><div class="wi">
+      <div class="wn">Quen Deadeye · Quen Commander <span class="wt">A-Tier · DLC</span></div>
+      <div class="wd">Deadeye for stealth archery. Commander for Resonator Strikes with less defense than Artificer. Both excellent, slightly behind S-tier.</div>
+    </div></div>
+    <div class="weapon general"><span class="tb" style="background:var(--btier);font-size:11px;">B</span><div class="wi">
+      <div class="wn">Tenakth Tactician · Carja Stalker Elite <span class="wt">B-Tier</span></div>
+      <div class="wd">Niche specialists. Tactician for overrides; Stalker Elite for traps. Useful in their lanes, narrow otherwise.</div>
+    </div></div>
+    <div class="weapon general"><span class="tb t-i" style="font-size:11px;">C</span><div class="wi">
+      <div class="wn">Tenakth Vanquisher · Nora Lookout <span class="wt">C-Tier · Avoid</span></div>
+      <div class="wd"><strong>Community "noob traps."</strong> Vanquisher's low-HP bonuses are suicidal on Ultra Hard. Lookout only helps when already losing. Skip both.</div>
+    </div></div>
+    <div class="combo-box">
+      <strong>Is Legendary worth the grind?</strong> On Story through Hard, fully upgraded Very Rare outfits clear all content. On Very Hard and Ultra Hard, Legendary skill synergies — particularly +2 bonus weaves at level 3 — create multiplicative effects purple armors can't replicate.
     </div>
-
-    <div class="info-box">
-      <strong>Key rule:</strong> Skills cap at level 4 — the skill tree provides up to level 2, and gear plus weaves provide the remaining +2. A Legendary armor with +2 to a skill can max it out without you spending a single skill point. Plan your skill tree around your armor's built-in bonuses.
-    </div>
-
-  </div>
-</section>
-
-<!-- ════════════════ ULTRA HARD GUIDE ════════════════ -->
-<div class="phase-connector">▼</div>
-
-<section class="phase">
-  <div class="phase-head">
-    <div class="phase-number">Reference</div>
-    <h2 class="phase-name">Ultra Hard &amp; Community Tier List</h2>
-    <div class="phase-meta">What experienced players actually do</div>
-  </div>
-  <div class="phase-body">
-
-    <div class="phase-intro" style="padding: 0 12px;">
-      On Ultra Hard, elemental matching becomes critical — wearing −24 Fire resistance against a Scorcher is a death sentence. Maintain a <strong>3–4 outfit rotation</strong> and swap by encounter.
-    </div>
-
-    <div class="card-group" style="margin-top:20px;">
-      <div class="card-group-title">Community Armor Tier List</div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary" style="background:rgba(240,192,64,0.12);border-color:rgba(240,192,64,0.3);color:#f0c040;">S</div>
-        <div class="armor-info">
-          <div class="armor-name">Nora Thunder Warrior</div>
-          <div class="armor-desc"><strong>Best all-rounder.</strong> HFW is a ranged game — nothing else extends Concentration as much. Default for every encounter where you're not specifically stealth-ing or melee-ing.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary" style="background:rgba(240,192,64,0.12);border-color:rgba(240,192,64,0.3);color:#f0c040;">S</div>
-        <div class="armor-info">
-          <div class="armor-name">Oseram Artificer</div>
-          <div class="armor-desc"><strong>Highest defense + best melee.</strong> Paired with Overshield Valor Surge = closest to Shield-Weaver dominance. Mandatory for melee builds.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary" style="background:rgba(240,192,64,0.12);border-color:rgba(240,192,64,0.3);color:#f0c040;">S</div>
-        <div class="armor-info">
-          <div class="armor-name">Utaru Winterweave</div>
-          <div class="armor-desc"><strong>Definitive stealth armor.</strong> 85% overhealth on Silent Strike kills. Plasma resistance covers Thunder Warrior's weakness. Trivializes rebel camps.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary" style="background:rgba(240,192,64,0.12);border-color:rgba(240,192,64,0.3);color:#f0c040;">S</div>
-        <div class="armor-info">
-          <div class="armor-name">Quen Marine <span style="font-size:11px;color:var(--text-muted);font-weight:400">(DLC)</span></div>
-          <div class="armor-desc"><strong>Thunder Warrior sidegrade.</strong> Trades Heavy Weapon+ for Valor Surge Master. Equal in power, different in emphasis. Pick based on playstyle.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="tier-tag tier-s">S-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary" style="background:rgba(96,204,96,0.1);border-color:rgba(96,204,96,0.25);color:#60cc60;">A</div>
-        <div class="armor-info">
-          <div class="armor-name">Quen Deadeye <span style="font-size:11px;color:var(--text-muted);font-weight:400">(DLC)</span> &nbsp;·&nbsp; Quen Commander <span style="font-size:11px;color:var(--text-muted);font-weight:400">(DLC)</span></div>
-          <div class="armor-desc">Deadeye for stealth archery (Winterweave alternative). Commander for Resonator Strikes (Artificer alternative with less defense). Both excellent, slightly behind the S-tier trio.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="tier-tag tier-a">A-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary" style="background:rgba(102,153,204,0.1);border-color:rgba(102,153,204,0.25);color:#6699cc;">B</div>
-        <div class="armor-info">
-          <div class="armor-name">Tenakth Tactician &nbsp;·&nbsp; Carja Stalker Elite</div>
-          <div class="armor-desc">Niche specialists. Tactician for machine overrides; Stalker Elite for trap builds. Useful in their lanes, but narrow.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="tier-tag tier-b">B-TIER</span>
-        </div>
-      </div>
-
-      <div class="armor-card">
-        <div class="rarity-pip legendary" style="background:rgba(153,153,153,0.08);border-color:rgba(153,153,153,0.2);color:#999;">C</div>
-        <div class="armor-info">
-          <div class="armor-name">Tenakth Vanquisher &nbsp;·&nbsp; Nora Lookout <span style="font-size:11px;color:var(--text-muted);font-weight:400">(DLC)</span></div>
-          <div class="armor-desc"><strong>Community "noob traps."</strong> Vanquisher's low-HP bonuses are suicidal on Ultra Hard. Nora Lookout only helps when you're already losing. Skip both.</div>
-        </div>
-        <div class="armor-actions">
-          <span class="tier-tag tier-c">AVOID</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="info-box">
-      <strong>Is Legendary worth the grind?</strong> On Story through Hard, fully upgraded Very Rare outfits clear all content. On Very Hard and Ultra Hard, Legendary skill synergies — particularly the +2 bonus weaves unlocked at level 3 — create multiplicative effects that purple armors can't replicate. The grind is worth it on higher difficulties.
-    </div>
-
-    <div class="info-box">
+    <div class="note-box tip">
       <strong>No armors are missable</strong> (except Tenakth High Marshal / Regalla's Wrath — mutually exclusive by choice). Every other armor remains permanently purchasable or earnable. The game resets to just before the final mission after credits.
     </div>
-
   </div>
-</section>
-
-<!-- ════════════════ FOOTER ════════════════ -->
-<footer class="page-footer">
-  Based on community research from Reddit (r/horizon), GameFAQs, Game8, PowerPyx, TheGamer, ScreenRant, CBR, Inverse, Push Square, and in-game data.<br>
-  Companion to the <a href="https://joancomasfdz.github.io/horizon-forbidden-west-roadmap/">Quest Roadmap</a> · <a href="https://joancomasfdz.github.io/horizon-forbidden-west-roadmap/weapon-roadmap.html">Weapon Roadmap</a>
-</footer>
+</div>
 
 </div>
+
+<div class="footer">
+  Based on community research from Reddit (r/horizon), GameFAQs, Game8, PowerPyx, TheGamer, ScreenRant, CBR, Inverse, Push Square, and in-game data.<br>
+  Companion to the <a href="https://joancomasfdz.github.io/horizon-forbidden-west-roadmap/">Quest Roadmap</a> · <a href="https://joancomasfdz.github.io/horizon-forbidden-west-roadmap/weapon-roadmap.html">Weapon Roadmap</a>
+</div>
+
+<script>
+function toggle(id) { document.getElementById(id).classList.toggle('collapsed'); }
+</script>
 </body>
 </html>
