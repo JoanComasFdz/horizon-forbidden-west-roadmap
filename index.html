@@ -69,6 +69,12 @@
     max-width:640px;
     margin-left:auto;margin-right:auto;
   }
+  .hero a {
+    color:var(--main);
+    text-decoration:none;
+    border-bottom:1px solid rgba(232,68,58,0.4);
+  }
+  .hero a:hover { border-bottom-color:var(--main); }
   .legend {
     display:flex;
     flex-wrap:wrap;
@@ -279,6 +285,8 @@
     max-width:900px;
     margin:0 auto;
   }
+  .footer a { color:var(--main);text-decoration:none;border-bottom:1px solid rgba(232,68,58,0.4); }
+  .footer a:hover { border-bottom-color:var(--main); }
 
   @media(max-width:600px) {
     .hero { padding:32px 16px 24px; }
@@ -291,7 +299,7 @@
 
 <div class="hero">
   <h1>Horizon Forbidden West</h1>
-  <p>Optimal Quest Roadmap — play main missions, side quests, and activities in the smartest order to unlock key tools, weapons, and armor exactly when they matter most.</p>
+  <p>Optimal Quest Roadmap — play main missions, side quests, and activities in the smartest order to unlock key tools, weapons, and armor exactly when they matter most. Companion to the <a href="weapon-roadmap.html">Weapon Roadmap</a> and <a href="armor-roadmap.html">Armor Roadmap</a>.</p>
 </div>
 
 <div class="legend">
@@ -771,7 +779,8 @@
 
 <div class="footer">
   Based on community research, wiki data, and optimal routing guides. Spoilers kept to minimum — quest names and tool/reward names only.<br>
-  Side quests within each phase can generally be done in any order unless dependencies are noted.
+  Side quests within each phase can generally be done in any order unless dependencies are noted.<br>
+  Companion to the <a href="weapon-roadmap.html">Weapon Roadmap</a> · <a href="armor-roadmap.html">Armor Roadmap</a>
 </div>
 
 <script>
